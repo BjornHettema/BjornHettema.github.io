@@ -7,231 +7,230 @@
 <meta name="description" content="Bjorn Hettema, spatial planner working across urban water, mobility and urban data in the Netherlands and Southeast Asia.">
 <link rel="canonical" href="https://bjornhettema.github.io/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#0B8F63" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#090D0C" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#070F0D">
 <meta property="og:title" content="Bjorn Hettema">
-<meta property="og:description" content="I help cities figure out how they actually work.">
+<meta property="og:description" content="I build the instruments cities use to understand themselves.">
 <meta property="og:image" content="https://bjornhettema.github.io/me.jpg">
 <meta property="og:url" content="https://bjornhettema.github.io/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <style>
-  :root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  :root{color-scheme:dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
   body{margin:0}
   img{max-width:100%}
   [hidden]{display:none!important}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap">
 <style>
-  /* ---------- tokens: cool monochrome + one saturated accent ---------- */
   :root{
-    color-scheme: light;
-    --bg:#F2F4F2;
-    --surface:#FFFFFF;
-    --surface-2:#E9ECE9;
-    --ink:#0F1513;
-    --muted:#626C68;
-    --faint:#8C9793;
-    --line:#DBE0DD;
-    --hair:#E6EAE7;
-    --accent:#0B8F63;
-    --accent-ink:#FFFFFF;
-    --accent-wash:#DCEFE6;
-    --shadow:0 1px 2px rgb(15 21 19 / .04), 0 10px 30px rgb(15 21 19 / .06);
-    --r:14px;
-    --display:"Bricolage Grotesque", "Geist", system-ui, sans-serif;
-    --sans:"Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --mono:"Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
-    --gut:clamp(16px, 4vw, 52px);
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      color-scheme: dark;
-      --bg:#090D0C; --surface:#111716; --surface-2:#171E1C; --ink:#E6EDEA;
-      --muted:#94A09B; --faint:#6F7C77; --line:#222B28; --hair:#1A2220;
-      --accent:#27CE93; --accent-ink:#04120C; --accent-wash:#0F2B21;
-      --shadow:0 1px 2px rgb(0 0 0 / .5), 0 12px 34px rgb(0 0 0 / .34);
-    }
-  }
-  :root[data-theme="dark"]{
     color-scheme: dark;
-    --bg:#090D0C; --surface:#111716; --surface-2:#171E1C; --ink:#E6EDEA;
-    --muted:#94A09B; --faint:#6F7C77; --line:#222B28; --hair:#1A2220;
-    --accent:#27CE93; --accent-ink:#04120C; --accent-wash:#0F2B21;
-    --shadow:0 1px 2px rgb(0 0 0 / .5), 0 12px 34px rgb(0 0 0 / .34);
+    --bg:#070F0D; --bg-2:#0B1714; --surface:#101C19; --surface-2:#16241F;
+    --ink:#E9F2EE; --muted:#93A89F; --faint:#697D76;
+    --line:#1E2E29; --hair:#16221F;
+    --accent:#2FE39A; --accent-ink:#04170F; --wash:#0E2B22;
+    --s1:#1E4A3C; --s2:#256B52; --s3:#2E8F68; --s4:#2ABA82; --s5:#3BEBA4;
+    --shadow:0 1px 2px rgb(0 0 0 / .5), 0 18px 48px rgb(0 0 0 / .38);
+    --r:16px;
+    --display:"Bricolage Grotesque","Geist",system-ui,sans-serif;
+    --sans:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+    --gut:clamp(16px,4.2vw,64px);
+    --maxw:1220px;
+  }
+  :root[data-theme="light"]{
+    color-scheme: light;
+    --bg:#F4F6F4; --bg-2:#EBEFEC; --surface:#FFFFFF; --surface-2:#F0F3F1;
+    --ink:#0B1411; --muted:#586962; --faint:#84938C;
+    --line:#DBE2DE; --hair:#E7ECE9;
+    --accent:#06996A; --accent-ink:#FFFFFF; --wash:#DFF0E8;
+    --s1:#C6DED3; --s2:#8CC4AC; --s3:#4FA684; --s4:#178A63; --s5:#046B4B;
+    --shadow:0 1px 2px rgb(11 20 17 / .05), 0 16px 40px rgb(11 20 17 / .07);
   }
 
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--ink);font-family:var(--sans);
-    font-size:clamp(15px,.4vw + 14px,17px);line-height:1.65;margin:0;
-    -webkit-font-smoothing:antialiased}
-  ::selection{background:var(--accent-wash);color:var(--ink)}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    font-size:clamp(15px,.35vw + 14px,17px);line-height:1.62;-webkit-font-smoothing:antialiased;
+    overflow-x:hidden}
+  ::selection{background:var(--wash);color:var(--ink)}
   a{color:var(--accent);text-underline-offset:3px}
   :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
   img{display:block;max-width:100%;height:auto}
-
-  h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.025em;
-    text-wrap:balance;margin:0;line-height:1.04}
-  p{margin:0 0 1rem;max-width:64ch}
+  h1,h2,h3{font-family:var(--display);letter-spacing:-.03em;line-height:1.02;margin:0;text-wrap:balance}
+  p{margin:0 0 1rem;max-width:62ch}
   p:last-child{margin-bottom:0}
-
-  .shell{width:min(1180px, 100%);margin-inline:auto;padding-inline:var(--gut)}
+  .shell{width:min(var(--maxw),100%);margin-inline:auto;padding-inline:var(--gut)}
+  .mono{font-family:var(--mono)}
 
   /* ---------- nav ---------- */
-  nav.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;height:64px;
-    background:var(--bg);border-bottom:1px solid var(--hair)}
-  @supports (backdrop-filter: blur(1px)){
-    nav.bar{background:color-mix(in srgb, var(--bg) 82%, transparent);backdrop-filter:blur(14px)}
-  }
-  .bar-in{height:64px;display:flex;align-items:center;gap:clamp(8px,2vw,22px)}
-  .brand{font-family:var(--display);font-weight:700;font-size:16px;letter-spacing:-.02em;
+  nav.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:60;height:60px;
+    border-bottom:1px solid var(--hair);background:var(--bg)}
+  @supports (backdrop-filter:blur(2px)){nav.bar{background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(16px)}}
+  .bar-in{height:60px;display:flex;align-items:center;gap:clamp(6px,2vw,20px)}
+  .brand{font-family:var(--display);font-weight:800;font-size:16px;letter-spacing:-.03em;
     color:var(--ink);text-decoration:none;margin-right:auto;white-space:nowrap}
   .navlinks{display:flex;gap:2px}
-  .navlinks a{font-size:14px;font-weight:500;color:var(--muted);text-decoration:none;
-    padding:7px 12px;border-radius:999px;white-space:nowrap;transition:color .18s, background .18s}
+  .navlinks a{font-size:13.5px;font-weight:500;color:var(--muted);text-decoration:none;
+    padding:6px 11px;border-radius:999px;white-space:nowrap}
   .navlinks a:hover{color:var(--ink);background:var(--surface-2)}
-  .navlinks a[aria-current="true"]{color:var(--accent);background:var(--accent-wash)}
-  @media (max-width:760px){.navlinks{display:none}}
-  .tgl{flex:none;width:34px;height:34px;border-radius:999px;border:1px solid var(--line);
-    background:var(--surface);color:var(--muted);cursor:pointer;display:grid;place-items:center;
-    transition:color .18s, border-color .18s}
-  .tgl:hover{color:var(--ink);border-color:var(--accent)}
-  .tgl:active{transform:scale(.94)}
+  .navlinks a[aria-current="true"]{color:var(--accent);background:var(--wash)}
+  @media (max-width:800px){.navlinks{display:none}}
+  .tgl{flex:none;width:33px;height:33px;border-radius:999px;border:1px solid var(--line);
+    background:var(--surface);color:var(--muted);cursor:pointer;display:grid;place-items:center}
+  .tgl:hover{color:var(--accent);border-color:var(--accent)}
+  .tgl:active{transform:scale(.93)}
 
-  /* ---------- buttons ---------- */
-  .btn{font-family:var(--sans);font-size:15px;font-weight:500;cursor:pointer;text-decoration:none;
-    border-radius:999px;padding:11px 22px;border:1px solid var(--line);background:var(--surface);
+  .btn{font-family:var(--sans);font-size:14.5px;font-weight:500;cursor:pointer;text-decoration:none;
+    border-radius:999px;padding:10px 20px;border:1px solid var(--line);background:var(--surface);
     color:var(--ink);display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
-    transition:transform .16s cubic-bezier(.16,1,.3,1), background .18s, border-color .18s}
+    transition:transform .16s cubic-bezier(.16,1,.3,1),background .18s,border-color .18s}
   .btn:hover{background:var(--surface-2);border-color:var(--muted)}
   .btn:active{transform:translateY(1px) scale(.985)}
-  .btn.solid{background:var(--accent);color:var(--accent-ink);border-color:transparent}
-  .btn.solid:hover{background:var(--accent);filter:brightness(1.08)}
+  .btn.solid{background:var(--accent);color:var(--accent-ink);border-color:transparent;font-weight:600}
+  .btn.solid:hover{background:var(--accent);filter:brightness(1.1)}
 
-  /* ---------- hero: asymmetric split ---------- */
-  .hero{display:grid;grid-template-columns:minmax(0,1.62fr) minmax(0,.78fr);
-    gap:clamp(24px,5vw,64px);align-items:center;
-    padding-block:clamp(36px,5.5vw,68px) clamp(32px,5vw,60px)}
-  .greet{font-family:var(--mono);font-size:13px;color:var(--accent);margin:0 0 18px;letter-spacing:.01em}
-  h1{font-size:clamp(32px,4vw,50px);margin-bottom:20px}
-  .lede{font-size:clamp(17px,1.2vw + 13px,21px);line-height:1.5;color:var(--muted);
-    max-width:36ch;margin-bottom:28px}
-  .lede b{color:var(--ink);font-weight:500}
-  .cta{display:flex;flex-wrap:wrap;gap:10px}
-  .shot{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);
-    background:var(--surface-2);aspect-ratio:1/1.16}
-  .shot img{width:100%;height:100%;object-fit:cover;object-position:50% 45%}
-  @media (max-width:820px){
-    .hero{grid-template-columns:1fr;align-items:start;gap:28px}
-    .shot{width:132px;aspect-ratio:1/1;border-radius:999px;order:-1}
-    h1{font-size:clamp(34px,9vw,52px)}
-    .lede{max-width:40ch}
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding-block:clamp(34px,6vw,76px) clamp(30px,5vw,56px);
+    display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);
+    gap:clamp(22px,4vw,56px);align-items:center}
+  h1{font-size:clamp(40px,7.6vw,94px);font-weight:800;margin-bottom:20px}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lede{font-size:clamp(16.5px,.9vw + 13px,20px);line-height:1.5;color:var(--muted);max-width:34ch;margin-bottom:26px}
+  .cta{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .face{width:52px;height:52px;border-radius:999px;overflow:hidden;border:1px solid var(--line);flex:none}
+  .face img{width:100%;height:100%;object-fit:cover}
+  .plate{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);
+    background:var(--surface);box-shadow:var(--shadow)}
+  .plate img{width:100%}
+  .plate .tag{position:absolute;left:0;right:0;bottom:0;padding:9px 12px;
+    font-family:var(--mono);font-size:11px;color:var(--ink);
+    background:color-mix(in srgb,var(--surface) 88%,transparent);border-top:1px solid var(--hair)}
+  @media (max-width:880px){
+    .hero{grid-template-columns:1fr;gap:26px}
+    h1{font-size:clamp(36px,10vw,58px)}
   }
 
-  /* ---------- section scaffolding ---------- */
-  section{padding-block:clamp(56px,8vw,112px)}
-  .rule{border:0;border-top:1px solid var(--hair);margin:0}
-  h2{font-size:clamp(27px,3.4vw,42px);margin-bottom:16px}
-  h3{font-size:clamp(20px,1.6vw,26px);margin-bottom:10px;line-height:1.14}
-  .kicker{font-family:var(--mono);font-size:12.5px;color:var(--faint);margin:0 0 14px}
+  /* ---------- marquee ---------- */
+  .strip{border-block:1px solid var(--hair);overflow:hidden;padding-block:13px;background:var(--bg-2)}
+  .track{display:flex;gap:0;width:max-content;animation:slide 44s linear infinite}
+  .track span{font-family:var(--mono);font-size:13px;color:var(--faint);padding-inline:22px;white-space:nowrap}
+  .track span b{color:var(--accent);font-weight:400}
+  @keyframes slide{to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){.track{animation:none;width:auto;flex-wrap:wrap;justify-content:center}}
+
+  section{padding-block:clamp(52px,7vw,104px)}
+  hr.rule{border:0;border-top:1px solid var(--hair);margin:0}
+  h2{font-size:clamp(28px,3.9vw,50px);font-weight:700;margin-bottom:14px}
+  h3{font-size:clamp(18px,1.4vw,23px);font-weight:600;margin-bottom:8px;line-height:1.16}
+  .kick{font-family:var(--mono);font-size:12.5px;color:var(--accent);margin:0 0 12px}
   .lead{color:var(--muted);max-width:56ch}
 
-  /* --- F1: type-led project block --- */
-  .typeled{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-    gap:clamp(22px,4vw,56px);align-items:start}
-  .facts{display:grid;gap:0;border-top:1px solid var(--line)}
-  .fact{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:baseline;
-    padding:13px 0;border-bottom:1px solid var(--hair)}
-  .fact dt{color:var(--muted);font-size:14.5px;margin:0}
-  .fact dd{margin:0;font-family:var(--mono);font-size:14px;color:var(--ink);text-align:right}
-  @media (max-width:760px){.typeled{grid-template-columns:1fr}}
+  .duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(22px,4vw,60px);align-items:start}
+  @media (max-width:900px){.duo{grid-template-columns:1fr}}
 
-  /* --- F2/F3: image + text split --- */
-  .split{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
-    gap:clamp(22px,4.4vw,64px);align-items:center}
-  .split.flip > .fig{order:-1}
-  @media (max-width:860px){.split{grid-template-columns:1fr;gap:26px}.split.flip > .fig{order:0}}
-  .fig{margin:0}
-  .fig img{border-radius:var(--r);border:1px solid var(--line);background:var(--surface);width:100%}
-  .cap{font-family:var(--mono);font-size:12px;color:var(--faint);line-height:1.55;
-    margin-top:10px;max-width:46ch}
-  .figpair{display:grid;grid-template-columns:1.32fr 1fr;gap:12px;align-items:start}
-  @media (max-width:520px){.figpair{grid-template-columns:1fr}}
+  /* ---------- instrument shell ---------- */
+  .inst{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);
+    box-shadow:var(--shadow);overflow:hidden}
+  .inst-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
+    padding:12px 14px;border-bottom:1px solid var(--hair);background:var(--surface-2)}
+  .inst-title{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .inst-body{padding:14px}
+  .inst-note{font-family:var(--mono);font-size:11.5px;color:var(--faint);line-height:1.6;
+    padding:10px 14px;border-top:1px solid var(--hair)}
+  .ctrls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:12px}
+  .ctrl{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+  input[type=range]{accent-color:var(--accent);width:clamp(96px,18vw,150px)}
+  .readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:1px;
+    background:var(--hair);border-top:1px solid var(--hair)}
+  .cell{background:var(--surface);padding:11px 13px}
+  .cell .n{font-family:var(--mono);font-size:19px;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.2}
+  .cell .n.good{color:var(--accent)}
+  .cell .l{font-size:11px;color:var(--faint);margin-top:2px}
+  canvas{display:block;width:100%;border-radius:10px;background:var(--bg-2)}
 
-  /* --- F4: three tiles --- */
-  .tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-  @media (max-width:880px){.tiles{grid-template-columns:1fr}}
-  .tile{container-type:inline-size;border-radius:var(--r);border:1px solid var(--line);
-    padding:clamp(18px,3cqi,26px);display:flex;flex-direction:column;gap:9px;
-    transition:transform .2s cubic-bezier(.16,1,.3,1), border-color .2s}
-  .tile:hover{transform:translateY(-3px);border-color:var(--accent)}
+  /* ---------- segment scorer ---------- */
+  .segs{display:flex;gap:3px;margin-bottom:14px}
+  .seg{flex:1;height:52px;border:0;border-radius:5px;cursor:pointer;background:var(--s1);
+    position:relative;transition:transform .16s cubic-bezier(.16,1,.3,1)}
+  .seg:hover{transform:translateY(-3px)}
+  .seg[aria-pressed="true"]{outline:2px solid var(--accent);outline-offset:2px}
+  .sc-row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;
+    padding:9px 0;border-top:1px solid var(--hair);font-size:14px}
+  .sc-row .lbl{color:var(--muted)}
+  .sc-row .val{font-family:var(--mono);color:var(--accent);font-size:15px}
+  .pips{display:flex;gap:4px}
+  .pip{width:26px;height:26px;border-radius:6px;border:1px solid var(--line);background:var(--surface-2);
+    cursor:pointer;font-family:var(--mono);font-size:11.5px;color:var(--muted);padding:0}
+  .pip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:transparent;font-weight:600}
+
+  /* ---------- layer toggle ---------- */
+  .layers{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+  .layers img{width:100%;display:block}
+  .layers img.b{position:absolute;inset:0;opacity:0;transition:opacity .45s cubic-bezier(.16,1,.3,1)}
+  .layers.on img.b{opacity:1}
+  .lswitch{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;
+    background:var(--surface);margin-bottom:12px}
+  .lswitch button{font-family:var(--sans);font-size:13px;font-weight:500;border:0;cursor:pointer;
+    border-radius:999px;padding:7px 15px;background:transparent;color:var(--muted)}
+  .lswitch button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:600}
+
+  .cap{font-family:var(--mono);font-size:11.5px;color:var(--faint);line-height:1.6;margin-top:10px;max-width:52ch}
+  .figpair{display:grid;grid-template-columns:1.3fr 1fr;gap:12px;align-items:start}
+  @media (max-width:560px){.figpair{grid-template-columns:1fr}}
+
+  /* ---------- tiles ---------- */
+  .tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+  @media (max-width:900px){.tiles{grid-template-columns:1fr}}
+  .tile{container-type:inline-size;border:1px solid var(--line);border-radius:var(--r);
+    padding:clamp(17px,3cqi,24px);display:flex;flex-direction:column;gap:8px;
+    transition:transform .2s cubic-bezier(.16,1,.3,1),border-color .2s}
+  .tile:hover{transform:translateY(-4px);border-color:var(--accent)}
   .tile:nth-child(1){background:var(--surface)}
-  .tile:nth-child(2){background:var(--accent-wash);border-color:transparent}
+  .tile:nth-child(2){background:var(--wash);border-color:transparent}
   .tile:nth-child(3){background:var(--surface-2)}
-  .tile .yr{font-family:var(--mono);font-size:12px;color:var(--faint)}
-  .tile h3{font-size:clamp(17px,4.6cqi,21px);margin:0}
-  .tile p{font-size:14.5px;color:var(--muted);margin:0}
+  .tile .yr{font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+  .tile p{font-size:14px;color:var(--muted);margin:0}
 
-  /* --- F5: about --- */
-  .about{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,.8fr);
-    gap:clamp(24px,5vw,64px);align-items:start}
-  @media (max-width:860px){.about{grid-template-columns:1fr}}
   .panel{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);
-    padding:clamp(18px,2.6vw,26px);box-shadow:var(--shadow)}
-  .panel dl{display:grid;gap:0;margin:0}
-  .panel div{padding:11px 0;border-bottom:1px solid var(--hair)}
+    padding:clamp(17px,2.4vw,24px);box-shadow:var(--shadow)}
+  .panel div{padding:10px 0;border-bottom:1px solid var(--hair)}
   .panel div:last-child{border-bottom:0;padding-bottom:0}
   .panel div:first-child{padding-top:0}
-  .panel dt{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-bottom:3px}
-  .panel dd{margin:0;font-size:15px;color:var(--ink)}
+  .panel dt{font-family:var(--mono);font-size:11px;color:var(--faint);margin-bottom:2px}
+  .panel dd{margin:0;font-size:14.5px}
+  .panel dl{margin:0}
 
-  /* --- F6: record --- */
-  .record{display:grid;gap:0;border-top:1px solid var(--line)}
-  .rec{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,2fr) auto;gap:clamp(12px,3vw,32px);
-    align-items:baseline;padding:20px 0;border-bottom:1px solid var(--hair);
+  .record{border-top:1px solid var(--line)}
+  .rec{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,2fr) auto;gap:clamp(10px,3vw,28px);
+    align-items:baseline;padding:18px 0;border-bottom:1px solid var(--hair);
     text-decoration:none;color:inherit;transition:padding-left .22s cubic-bezier(.16,1,.3,1)}
   .rec:hover{padding-left:10px}
-  .rec .who{font-weight:500;font-size:15.5px}
-  .rec .what{color:var(--muted);font-size:14.5px}
-  .rec .go{font-family:var(--mono);font-size:12.5px;color:var(--accent);white-space:nowrap}
-  @media (max-width:760px){.rec{grid-template-columns:1fr;gap:5px;padding:16px 0}}
+  .rec .who{font-weight:500}
+  .rec .what{color:var(--muted);font-size:14px}
+  .rec .go{font-family:var(--mono);font-size:12px;color:var(--accent);white-space:nowrap}
+  @media (max-width:800px){.rec{grid-template-columns:1fr;gap:4px;padding:15px 0}}
 
-  /* --- F7: contact band --- */
-  .band{background:var(--accent-wash);border-radius:var(--r);
-    padding:clamp(26px,5vw,58px) clamp(20px,4vw,50px)}
-  .band h2{max-width:16ch}
-  .band .lead{color:var(--muted);max-width:50ch;margin-bottom:24px}
-  .addr{font-family:var(--mono);font-size:15px;color:var(--ink);background:var(--surface);
-    border:1px solid var(--line);border-radius:999px;padding:10px 18px;display:inline-block;
-    user-select:all;word-break:break-all}
+  .band{background:var(--wash);border-radius:var(--r);padding:clamp(24px,4.6vw,54px) clamp(18px,4vw,46px)}
+  .addr{font-family:var(--mono);font-size:15px;background:var(--surface);border:1px solid var(--line);
+    border-radius:999px;padding:10px 18px;display:inline-block;user-select:all;word-break:break-all}
   .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
   .row + .row{margin-top:12px}
+  footer.end{padding-block:26px 44px;display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:space-between;
+    font-size:13px;color:var(--faint);border-top:1px solid var(--hair)}
 
-  footer.end{padding-block:28px 46px;display:flex;flex-wrap:wrap;gap:8px 24px;
-    justify-content:space-between;font-size:13.5px;color:var(--faint);border-top:1px solid var(--hair)}
-
-  /* ---------- motion: scroll-driven reveals ---------- */
   @media (prefers-reduced-motion: no-preference){
     @supports ((animation-timeline: view()) and (animation-range: entry)){
-      @keyframes rise{ from { opacity:0; transform:translateY(26px) } }
-      .reveal{
-        animation: rise auto cubic-bezier(.16,1,.3,1) backwards;
-        animation-timeline: view();
-        animation-range: entry 8% cover 34%;
-      }
+      @keyframes rise{from{opacity:0;transform:translateY(28px)}}
+      .reveal{animation:rise auto cubic-bezier(.16,1,.3,1) backwards;
+        animation-timeline:view();animation-range:entry 6% cover 32%}
     }
-    /* IntersectionObserver fallback adds .io-ready / .io-in */
-    .io-ready{opacity:0;transform:translateY(26px);
-      transition:opacity .62s cubic-bezier(.16,1,.3,1), transform .62s cubic-bezier(.16,1,.3,1)}
+    .io-ready{opacity:0;transform:translateY(28px);
+      transition:opacity .66s cubic-bezier(.16,1,.3,1),transform .66s cubic-bezier(.16,1,.3,1)}
     .io-ready.io-in{opacity:1;transform:none}
   }
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto}
-    *{animation:none !important;transition:none !important}
-  }
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
 
 </head>
@@ -240,123 +239,191 @@
   <div class="bar-in shell">
     <a class="brand" href="#top">Bjorn Hettema</a>
     <div class="navlinks">
-      <a href="#work">Work</a>
+      <a href="#routing">Routing</a>
+      <a href="#canals">Canals</a>
+      <a href="#deventer">Networks</a>
       <a href="#about">About</a>
-      <a href="#record">Record</a>
       <a href="#contact">Contact</a>
     </div>
-    <button class="tgl" id="theme" type="button" aria-label="Switch colour theme"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><circle cx="8" cy="8" r="6.4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 1.6a6.4 6.4 0 0 1 0 12.8z" fill="currentColor"/></svg></button>
+    <button class="tgl" id="theme" type="button" aria-label="Switch colour theme">
+      <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true">
+        <circle cx="8" cy="8" r="6.4" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M8 1.6a6.4 6.4 0 0 1 0 12.8z" fill="currentColor"/></svg>
+    </button>
   </div>
 </nav>
 
 <main id="top">
-
   <header class="hero shell">
     <div>
-      <p class="greet">Hello, I'm Bjorn</p>
-      <h1>I help cities figure out how they actually work.</h1>
-      <p class="lede">I map how cities move <b>water</b> and <b>people</b>, then build the software that acts on it.</p>
+      <h1>I build the <em>instruments</em> cities use to understand themselves.</h1>
+      <p class="lede">Spatial planner, three years of engineering behind the degree. I map how cities move
+        water and people, then write the software that acts on it.</p>
       <div class="cta">
-        <a class="btn solid" href="#work">See the work</a>
-        <a class="btn" href="cv/CV-BjornHettema-urban-water-research.docx">Download CV</a>
+        <span class="face"><img src="me.jpg" alt="Bjorn Hettema" width="440" height="440" fetchpriority="high"></span>
+        <a class="btn solid" href="#routing">See the work</a>
+        <a class="btn" href="cv/CV-BjornHettema-urban-water-research.docx">CV</a>
       </div>
     </div>
-    <figure class="shot">
-      <img src="me.jpg" alt="Bjorn Hettema" width="440" height="440" fetchpriority="high" decoding="async">
+    <figure class="plate" style="margin:0">
+      <img src="work-canals-analysis.jpg" alt="QGIS map of function division along the Kali Besar and Kali Ciliwung canals in Jakarta" width="1150" height="1125" fetchpriority="high">
+      <figcaption class="tag">Function division along the Kali Besar and Kali Ciliwung, Jakarta. My QGIS analysis.</figcaption>
     </figure>
   </header>
 
-  <hr class="rule">
+  <div class="strip" aria-label="Tools and methods">
+    <div class="track" id="track"></div>
+  </div>
 
-  <!-- F1: type-led, no image, the logic is the subject -->
-  <section id="work" class="shell">
-    <div class="typeled reveal">
-      <div>
-        <p class="kicker">Ho Chi Minh City, 2025</p>
+  <!-- ============ ROUTING ============ -->
+  <section id="routing" class="shell">
+    <div class="duo">
+      <div class="reveal">
+        <p class="kick">Ho Chi Minh City, 2025</p>
         <h2>Bins that tell the truck when they're full</h2>
         <p class="lead">Vollebak puts fill-level sensors inside public waste bins. I built the program that
           turns those readings into a collection route, so trucks stop driving past empty ones.</p>
-        <p class="lead">The road network is a weighted graph of intersections, bins and depot. Cached shortest
-          paths and a nearest-insertion heuristic build the round, and when a bin crosses its threshold
-          mid-route the route recalculates around it.</p>
-        <p class="lead">The harder question was which bins deserve a stop at all. I compared four ways of
-          deciding, from simple thresholds to one that prices the risk of a bin overflowing rather than
-          reading its current level.</p>
+        <p class="lead">A fill level is not a decision. Each reading runs through a logistic curve to
+          give the bin a collection priority, and that priority becomes a time window: a nearly full bin can
+          be collected at any point in the day, a half empty one gets a narrow slot later on.</p>
+        <p class="lead">The whole thing goes to a route optimiser as a set of shipments with windows, costs
+          and service times.</p>
+        <p class="lead" style="margin-top:16px;color:var(--ink)"><strong>Try it.</strong> Move the curve
+          and watch the round rebuild.</p>
       </div>
-      <dl class="facts">
-        <div class="fact"><dt>My role</dt><dd>Built the routing program</dd></div>
-        <div class="fact"><dt>Written in</dt><dd>Python</dd></div>
-        <div class="fact"><dt>Routing data</dt><dd>Google Routes API</dd></div>
-        <div class="fact"><dt>With</dt><dd>Hosoco, TDTU, Saxion</dd></div>
-        <div class="fact"><dt>Documented by</dt><dd><a href="https://civil.tdtu.edu.vn/en/news-events/2026/strengthening-global-academic-ties-dutch-student-bjorn-hettemas-internship-urban" target="_blank" rel="noopener">TDTU</a></dd></div>
-      </dl>
+
+      <div class="inst reveal">
+        <div class="inst-head">
+          <span class="inst-title">collection round, priority weighted</span>
+          <button class="btn solid" id="run" type="button">Rebuild round</button>
+        </div>
+        <div class="inst-body">
+          <canvas id="net" height="300" aria-label="Street network with bins sized by collection priority, showing the route"></canvas>
+          <div style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center;margin-top:12px">
+            <canvas id="curve" width="132" height="76" aria-label="Logistic curve mapping fill level to collection priority"></canvas>
+            <div>
+              <label class="ctrl" style="display:flex">steepness
+                <input type="range" id="k" min="2" max="20" value="10" step="1">
+                <span class="mono" id="kv" style="color:var(--accent)">10</span>
+              </label>
+              <label class="ctrl" style="display:flex;margin-top:9px">pivot
+                <input type="range" id="x0" min="20" max="80" value="50" step="5">
+                <span class="mono" id="x0v" style="color:var(--accent)">0.50</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="readout">
+          <div class="cell"><div class="n" id="r-served">0</div><div class="l">stops today</div></div>
+          <div class="cell"><div class="n" id="r-km">0</div><div class="l">route length</div></div>
+          <div class="cell"><div class="n good" id="r-shift">0h</div><div class="l">of an 8 hour shift</div></div>
+        </div>
+        <p class="inst-note">A demonstration of the model, running in your browser on a synthetic street
+          grid and synthetic fill levels. The production system hands the same shipment model to a commercial
+          route optimiser. That code belongs to the project and is not published.</p>
+      </div>
     </div>
   </section>
 
   <hr class="rule">
 
-  <!-- F2: image + text split -->
-  <section class="shell">
-    <div class="split reveal">
-      <div>
-        <p class="kicker">Semarang, Jakarta and Surabaya, 2026</p>
+  <!-- ============ CANALS ============ -->
+  <section id="canals" class="shell">
+    <div class="duo">
+      <div class="reveal">
+        <p class="kick">Semarang, Jakarta and Surabaya, 2026</p>
         <h2>Four hundred year old canals, sinking cities</h2>
         <p class="lead">Java's colonial-era canals still carry the water, but the ground is dropping and the
-          sea is rising. Over five months I worked out which stretches can still be saved, and what they
-          could become.</p>
-        <p class="lead">I built a scoring method for individual canal segments and applied it identically in
-          all three cities, so the cases could be compared rather than just described. That ran alongside
+          sea is rising. Over five months I worked out which stretches can still be saved.</p>
+        <p class="lead">I built a scoring instrument for individual canal segments and applied it identically
+          in all three cities, so the cases could be compared rather than just described. It ran alongside
           historical document analysis, QGIS overlays of the original network against the current one, and
           photographic validation on site.</p>
         <p class="lead">Sole author, named lead researcher by Universitas Diponegoro, graded 4.0. The study
-          sits inside the Dutch City Deal "Timeless Canals" and was built to run in both directions, so what
-          Java teaches goes back to the Dutch partners.</p>
-      </div>
-      <div class="fig">
-        <div class="figpair">
-          <figure class="fig">
-            <img src="work-canals-analysis.jpg" alt="QGIS map showing function division along the Kali Besar and Kali Ciliwung canals in Jakarta" loading="lazy" width="1150" height="1125">
-            <figcaption class="cap">Function division along the Kali Besar and Kali Ciliwung, Jakarta. My QGIS analysis.</figcaption>
-          </figure>
-          <figure class="fig">
-            <img src="work-canals-historic.jpg" alt="Nineteenth century plattegrond of Soerabaja showing the original canal network" loading="lazy" width="820" height="1233">
+          sits inside the Dutch City Deal "Timeless Canals" and runs in both directions, so what Java teaches
+          goes back to the Dutch partners.</p>
+        <div class="figpair" style="margin-top:22px">
+          <figure style="margin:0">
+            <img src="work-canals-historic.jpg" alt="Nineteenth century plattegrond of Soerabaja showing the original canal network" loading="lazy" width="820" height="1233" style="border-radius:12px;border:1px solid var(--line)">
             <figcaption class="cap">Plattegrond van Soerabaja. Archival plan used to reconstruct the original network.</figcaption>
           </figure>
+          <div></div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <hr class="rule">
-
-  <!-- F3: image + text split, flipped -->
-  <section class="shell">
-    <div class="split flip reveal">
-      <figure class="fig">
-        <img src="work-deventer-network.jpg" alt="Pedestrian network map of Deventer built in QGIS, showing base, main and green-recreational layers" loading="lazy" width="1300" height="918">
-        <figcaption class="cap">The pedestrian network for Deventer, built in QGIS to the CROW three-layer model.</figcaption>
-      </figure>
-      <div>
-        <p class="kicker">Deventer, 2026</p>
-        <h2>A city measured at walking pace</h2>
-        <p class="lead">Goudappel asked what a genuinely good pedestrian network for Deventer would look
-          like. We built one, then went out and counted whether people actually used it that way.</p>
-        <p class="lead">I wrote the queries that pulled the base network out of OpenStreetMap and filtered it
-          against explicit rules: alleys, cut-throughs, bridges and tunnels in, private land out. That became
-          four network maps built to the Dutch national standard.</p>
-        <p class="lead">Intensities came from Goudappel's mobility panel, checked against our own counts at
-          three locations. The two datasets did not agree, and what we concluded was that the hard numbers
-          only make sense with street-level observation beside them.</p>
+      <div class="reveal"><div class="inst">
+        <div class="inst-head">
+          <span class="inst-title">segment assessment instrument</span>
+          <span class="mono" style="font-size:12px;color:var(--faint)" id="seg-id">segment 1 of 12</span>
+        </div>
+        <div class="inst-body">
+          <div class="segs" id="segs" role="group" aria-label="Canal segments"></div>
+          <div class="sc-row">
+            <span class="lbl">Technical integrity</span>
+            <div class="pips" id="p-tech" role="group" aria-label="Technical integrity score"></div>
+            <span class="val" id="v-tech">3</span>
+          </div>
+          <div class="sc-row">
+            <span class="lbl">Functional use</span>
+            <div class="pips" id="p-func" role="group" aria-label="Functional use score"></div>
+            <span class="val" id="v-func">3</span>
+          </div>
+          <div class="sc-row">
+            <span class="lbl">Segment condition</span>
+            <span class="mono" style="color:var(--muted);font-size:13px" id="verdict">moderate, watch</span>
+            <span class="val" id="v-sum">6</span>
+          </div>
+        </div>
+        <div class="readout">
+          <div class="cell"><div class="n" id="c-mean">3.0</div><div class="l">mean technical</div></div>
+          <div class="cell"><div class="n" id="c-fmean">3.0</div><div class="l">mean functional</div></div>
+        </div>
+        <p class="inst-note">This is the instrument, not the findings. Pick a segment and score it the way
+          I did in the field. In the study it was applied to every segment across three cities, with
+          photographs as qualitative validation.</p>
       </div>
+      <figure style="margin:22px 0 0">
+        <img src="work-canals-historic.jpg" alt="Nineteenth century plattegrond of Soerabaja showing the original canal network" loading="lazy" width="820" height="1233" style="border-radius:12px;border:1px solid var(--line)">
+        <figcaption class="cap">Plattegrond van Soerabaja. Archival plan used to reconstruct the original network.</figcaption>
+      </figure></div>
     </div>
   </section>
 
   <hr class="rule">
 
-  <!-- F4: tiles -->
+  <!-- ============ DEVENTER ============ -->
+  <section id="deventer" class="shell">
+    <div class="reveal" style="max-width:56ch;margin-bottom:26px">
+      <p class="kick">Deventer, 2026</p>
+      <h2>A city measured at walking pace</h2>
+      <p class="lead">Goudappel asked what a genuinely good pedestrian network for Deventer would look like.
+        I wrote the queries that pulled the base network out of OpenStreetMap and filtered it against explicit
+        rules: alleys, cut-throughs, bridges and tunnels in, private land out. Then we went out and counted
+        whether people used it that way.</p>
+    </div>
+    <div class="reveal">
+      <div class="lswitch" role="group" aria-label="Map layer">
+        <button type="button" data-layer="base" aria-pressed="true">Base layer</button>
+        <button type="button" data-layer="full" aria-pressed="false">Full network</button>
+      </div>
+      <div class="layers" id="layers">
+        <img src="work-deventer-base.jpg" alt="Base pedestrian network of Deventer extracted from OpenStreetMap" loading="lazy" width="1300" height="918">
+        <img class="b" src="work-deventer-network.jpg" alt="Complete three-layer pedestrian network of Deventer built to the CROW standard" loading="lazy" width="1300" height="918">
+      </div>
+      <p class="cap" id="lcap">Every walkable connection pulled from OpenStreetMap and filtered by hand. The
+        starting point, before the network is classified.</p>
+      <p class="lead" style="margin-top:16px">Intensities came from Goudappel's mobility panel, checked
+        against our own counts at three locations. The two datasets did not agree, and what we concluded was
+        that the hard numbers only make sense with street-level observation beside them.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
   <section class="shell">
-    <h2 class="reveal">Also worth knowing about</h2>
-    <p class="lead reveal" style="margin-bottom:30px">Three more projects, across soil policy, accessibility and climate adaptation.</p>
+    <h2 class="reveal" style="margin-bottom:10px">Also worth knowing about</h2>
+    <p class="lead reveal" style="margin-bottom:28px">Soil policy, accessibility, and a car park that could
+      hold a rainstorm.</p>
     <div class="tiles reveal">
       <article class="tile">
         <span class="yr">Twente, 2023 to 2025</span>
@@ -368,7 +435,7 @@
       <article class="tile">
         <span class="yr">Tirana and the Netherlands, 2024</span>
         <h3>Who actually gets to use a public square</h3>
-        <p>Public spaces, transport hubs and parks in two countries with very different starting points,
+        <p>Public space, transport hubs and parks in two countries with very different starting points,
           assessed for accessibility and inclusiveness, ending in spatial and policy recommendations.</p>
       </article>
       <article class="tile">
@@ -382,17 +449,16 @@
 
   <hr class="rule">
 
-  <!-- F5: about -->
   <section id="about" class="shell">
-    <div class="about reveal">
+    <div class="duo reveal">
       <div>
         <h2>The engineering came first</h2>
         <p class="lead">I spent three years on electrical engineering and technical informatics before
           switching into spatial development. At the time it felt like starting over. It turned out to be the
-          most useful thing I did, because the problems I care about now sit exactly between the two.</p>
+          most useful thing I did, because the problems I care about sit exactly between the two.</p>
         <p class="lead">A routing algorithm and a zoning framework are both readable to me. That is a smaller
-          club than it should be, and it means I can usually take a project from the policy question through
-          to the thing that runs.</p>
+          club than it should be, and it means I can take a project from the policy question through to the
+          thing that runs.</p>
         <p class="lead">Fifteen months of that has been fieldwork in Southeast Asia, and it changed how I
           work. You cannot assess a canal from a desk in Deventer.</p>
       </div>
@@ -401,8 +467,9 @@
           <div><dt>Based</dt><dd>Bangkok, Thailand</dd></div>
           <div><dt>From</dt><dd>Deventer, Netherlands</dd></div>
           <div><dt>Degree</dt><dd>B.Sc. Spatial Development, Saxion</dd></div>
-          <div><dt>Geospatial</dt><dd>QGIS, ArcGIS, OpenStreetMap, Overpass</dd></div>
+          <div><dt>Geospatial</dt><dd>QGIS, ArcGIS, OpenStreetMap, Overpass Turbo</dd></div>
           <div><dt>Code</dt><dd>Python, R</dd></div>
+          <div><dt>Methods</dt><dd>Vehicle routing, graph algorithms, multi-criteria scoring</dd></div>
           <div><dt>Also</dt><dd>Certified UAS A1/A3 drone operator</dd></div>
           <div><dt>Languages</dt><dd>Dutch, English, German, some Vietnamese</dd></div>
         </dl>
@@ -412,40 +479,33 @@
 
   <hr class="rule">
 
-  <!-- F6: record -->
-  <section id="record" class="shell">
-    <h2 class="reveal">Written up by other people</h2>
-    <p class="lead reveal" style="margin-bottom:26px">Four places where the work is documented by someone other than me.</p>
+  <section class="shell">
+    <h2 class="reveal" style="margin-bottom:22px">Written up by other people</h2>
     <div class="record reveal">
       <a class="rec" href="https://civil.tdtu.edu.vn/en/news-events/2026/strengthening-global-academic-ties-dutch-student-bjorn-hettemas-internship-urban" target="_blank" rel="noopener">
         <span class="who">Ton Duc Thang University</span>
         <span class="what">The Faculty of Civil Engineering wrote up the smart-cities internship and awarded a certificate for research achievement.</span>
-        <span class="go">Read it</span>
-      </a>
+        <span class="go">Read it</span></a>
       <a class="rec" href="https://pasca.undip.ac.id/en/collaboration-between-sps-undip-and-saxion-university-on-researching-the-history-of-canal-transformation-of-the-javanese-shore/" target="_blank" rel="noopener">
         <span class="who">Universitas Diponegoro</span>
         <span class="what">The Postgraduate School's account of the Saxion and UNDIP canal collaboration, naming me lead researcher.</span>
-        <span class="go">Read it</span>
-      </a>
+        <span class="go">Read it</span></a>
       <a class="rec" href="https://svwatt.com/en/association/board/wall-of-fame/" target="_blank" rel="noopener">
         <span class="who">s.v. Watt</span>
         <span class="what">The study association's Wall of Fame, listing me as chairman of the 18th, 19th and 20th boards.</span>
-        <span class="go">Read it</span>
-      </a>
+        <span class="go">Read it</span></a>
       <a class="rec" href="https://fip.utwente.nl/nl/project/vollebak/" target="_blank" rel="noopener">
         <span class="who">University of Twente</span>
         <span class="what">The Vollebak project page: affordable sensing for public waste bins, with Robor Electronics and WesterikICT.</span>
-        <span class="go">Read it</span>
-      </a>
+        <span class="go">Read it</span></a>
     </div>
   </section>
 
-  <!-- F7: contact band -->
   <section id="contact" class="shell">
     <div class="band reveal">
       <h2>Tell me what you're working on</h2>
-      <p class="lead">Open to urban data and geospatial work, applied research on water and climate
-        adaptation, and smart-city projects. Remote, or based in Southeast Asia.</p>
+      <p class="lead" style="margin-bottom:22px">Open to urban data and geospatial work, applied research on
+        water and climate adaptation, and smart-city projects. Remote, or based in Southeast Asia.</p>
       <div class="row">
         <span class="addr" id="addr">contact.hettema@gmail.com</span>
         <button class="btn" id="copy" type="button">Copy address</button>
@@ -467,70 +527,293 @@
 <script>
 (function(){
   "use strict";
-  var $ = function(s){ return document.querySelector(s); };
-  var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $=function(s){return document.querySelector(s)}, $$=function(s){return [].slice.call(document.querySelectorAll(s))};
+  var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim()}
 
-  /* theme, remembered per viewer */
-  var root = document.documentElement, tbtn = $("#theme");
-  try { var saved = localStorage.getItem("bh-theme"); if (saved) root.setAttribute("data-theme", saved); } catch(e){}
-  tbtn.addEventListener("click", function(){
-    var cur = root.getAttribute("data-theme");
-    var isDark = cur ? cur === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
-    var next = isDark ? "light" : "dark";
-    root.setAttribute("data-theme", next);
-    try { localStorage.setItem("bh-theme", next); } catch(e){}
+  /* ---- theme ---- */
+  var root=document.documentElement, tb=$("#theme");
+  try{var sv=localStorage.getItem("bh-theme"); if(sv) root.setAttribute("data-theme",sv);}catch(e){}
+  tb.addEventListener("click",function(){
+    var next = root.getAttribute("data-theme")==="light" ? "dark" : "light";
+    root.setAttribute("data-theme",next);
+    try{localStorage.setItem("bh-theme",next);}catch(e){}
+    drawNet(); drawCurve();
   });
 
-  /* scroll reveals: CSS scroll-driven where supported, IntersectionObserver otherwise */
-  var nativeSDA = CSS.supports("(animation-timeline: view()) and (animation-range: entry)");
-  if (!nativeSDA && !reduce && "IntersectionObserver" in window) {
-    var reveals = $$(".reveal");
-    reveals.forEach(function(el){ el.classList.add("io-ready"); });
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting) { e.target.classList.add("io-in"); io.unobserve(e.target); }
-      });
-    }, {rootMargin: "0px 0px -12% 0px", threshold: 0.08});
-    reveals.forEach(function(el){ io.observe(el); });
+  /* ---- marquee ---- */
+  var tools=["QGIS","ArcGIS","Overpass Turbo","OpenStreetMap","Python","R","Vehicle routing","Dijkstra",
+             "Multi-criteria scoring","CROW standard","Omgevingswet","Field survey","UAS A1/A3","LaTeX"];
+  var track=$("#track"), html=tools.map(function(t){return '<span><b>/</b> '+t+'</span>'}).join("");
+  track.innerHTML = html + html;
+
+  /* ---- reveals ---- */
+  if(!CSS.supports("(animation-timeline: view()) and (animation-range: entry)") && !reduce && "IntersectionObserver" in window){
+    var rv=$$(".reveal"); rv.forEach(function(e){e.classList.add("io-ready")});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add("io-in");io.unobserve(e.target)}})},
+      {rootMargin:"0px 0px -10% 0px",threshold:.06});
+    rv.forEach(function(e){io.observe(e)});
   }
 
-  /* nav highlight, IntersectionObserver rather than a scroll listener */
-  var links = $$(".navlinks a");
-  var byId = {};
-  links.forEach(function(a){ byId[a.getAttribute("href").slice(1)] = a; });
-  var sections = Object.keys(byId).map(function(id){ return document.getElementById(id); }).filter(Boolean);
-  var visible = new Set();
-  if ("IntersectionObserver" in window && sections.length) {
-    var navIO = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting) visible.add(e.target.id); else visible.delete(e.target.id);
-      });
-      var first = sections.filter(function(s){ return visible.has(s.id); })[0];
-      links.forEach(function(a){
-        a.setAttribute("aria-current", String(!!first && a === byId[first.id]));
-      });
-    }, {rootMargin: "-64px 0px -55% 0px", threshold: 0});
-    sections.forEach(function(s){ navIO.observe(s); });
+  /* ---- nav highlight ---- */
+  var links=$$(".navlinks a"), map={};
+  links.forEach(function(a){map[a.getAttribute("href").slice(1)]=a});
+  var secs=Object.keys(map).map(function(id){return document.getElementById(id)}).filter(Boolean);
+  if("IntersectionObserver" in window && secs.length){
+    var seen=new Set();
+    var nio=new IntersectionObserver(function(es){
+      es.forEach(function(e){e.isIntersecting?seen.add(e.target.id):seen.delete(e.target.id)});
+      var cur=secs.filter(function(s){return seen.has(s.id)})[0];
+      links.forEach(function(a){a.setAttribute("aria-current",String(!!cur && a===map[cur.id]))});
+    },{rootMargin:"-60px 0px -55% 0px"});
+    secs.forEach(function(s){nio.observe(s)});
   }
 
-  /* copy address */
-  var copy = $("#copy"), addr = $("#addr"), label = copy.textContent;
-  copy.addEventListener("click", function(){
-    var back = function(){ setTimeout(function(){ copy.textContent = label; }, 1800); };
-    function selectIt(){
-      try {
-        var r = document.createRange(); r.selectNodeContents(addr);
-        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
-        copy.textContent = "Selected, press copy"; back();
-      } catch(e){ copy.textContent = "Select it manually"; back(); }
+  /* ================= ROUTING SIMULATOR =================
+     Mirrors the model built for Vollebak: fill level -> logistic priority ->
+     soft time window -> shipment model. Solved here with nearest-insertion;
+     the production system uses a commercial route optimiser. */
+  var cv=$("#net"), ctx=cv.getContext("2d"), cvc=$("#curve"), cc=cvc.getContext("2d");
+  var NODES=[],EDGES=[],BINS=[],DEPOT=null,ROUTE=[],W=0,H=0,prog=1,anim=null;
+  var kEl=$("#k"), x0El=$("#x0");
+  var SHIFT_H=8, SERVICE_S=300, SPEED_KMH=22;
+
+  function rng(seed){var s=seed;return function(){s=(s*1664525+1013904223)%4294967296;return s/4294967296}}
+  function dist(a,b){return Math.hypot(a.x-b.x,a.y-b.y)}
+  function kmScale(){return 12/Math.max(W,1)}  // canvas spans about 12 km
+
+  /* the logistic used in the real program */
+  function priority(fill){
+    var k=parseFloat(kEl.value), x0=parseFloat(x0El.value)/100;
+    return 1/(1+Math.exp(-k*(fill/100-x0)));
+  }
+
+  function build(){
+    var r=rng(24680), cols=W<460?5:W<620?6:8, rows=4;
+    NODES=[];EDGES=[];
+    var mx=W*.08,my=H*.13,gw=(W-mx*2)/(cols-1),gh=(H-my*2)/(rows-1);
+    for(var y=0;y<rows;y++)for(var x=0;x<cols;x++){
+      if(r()<.07) continue;
+      NODES.push({x:mx+x*gw+(r()-.5)*gw*.42,y:my+y*gh+(r()-.5)*gh*.38,gx:x,gy:y});
     }
-    try {
-      navigator.clipboard.writeText(addr.textContent.trim()).then(function(){
-        copy.textContent = "Copied"; back();
-      }, selectIt);
-    } catch(e){ selectIt(); }
+    NODES.forEach(function(a,i){NODES.forEach(function(b,j){
+      if(j<=i)return; var dx=Math.abs(a.gx-b.gx),dy=Math.abs(a.gy-b.gy);
+      if((dx===1&&dy===0)||(dx===0&&dy===1)) EDGES.push([a,b]);
+    })});
+    var pool=NODES.slice().sort(function(){return r()-.5});
+    DEPOT=pool[0];
+    var n=Math.min(22,pool.length-1);
+    BINS=pool.slice(1,1+n).map(function(nd){return {n:nd,fill:Math.round(r()*100)}});
+  }
+
+  /* time window from fill level, following the rule used in the real program:
+     a nearly full bin may be served at any point in the day, a fuller-than-empty
+     one gets a one hour slot, and the emptier it is the later that slot opens. */
+  var MIN_DELAY=0.05, MAX_DELAY=1.5, WIN=1.0;
+  function windowFor(fill){
+    if(fill>=80) return {s:0, e:SHIFT_H};
+    var start=MIN_DELAY+(MAX_DELAY-MIN_DELAY)*(1-fill/100);
+    var end=Math.min(start+WIN, SHIFT_H);
+    return {s:start, e:end};
+  }
+
+  /* greedy round that respects those windows, with lateness priced by the
+     logistic priority. Same shape as the shipment model, solved simply. */
+  var SOFT_COST=100;
+  function planRound(){
+    var scale=kmScale(), left=BINS.slice(), cur=DEPOT, t=0, tour=[DEPOT], served=[];
+    while(left.length){
+      var best=null;
+      for(var i=0;i<left.length;i++){
+        var travel=dist(cur,left[i].n)*scale/SPEED_KMH;
+        var arrive=t+travel, w=windowFor(left[i].fill);
+        var late=Math.max(0, arrive-w.e);
+        var cost=travel + SOFT_COST*priority(left[i].fill)*late;
+        if(!best||cost<best.cost) best={cost:cost,i:i,travel:travel,arrive:arrive,w:w};
+      }
+      var b=left[best.i];
+      var finish=Math.max(best.arrive,best.w.s)+SERVICE_S/3600;
+      var home=dist(b.n,DEPOT)*scale/SPEED_KMH;
+      if(finish+home>SHIFT_H) break;
+      t=finish; cur=b.n; tour.push(b.n); served.push(b); left.splice(best.i,1);
+    }
+    tour.push(DEPOT);
+    var len=0; for(var q=0;q<tour.length-1;q++) len+=dist(tour[q],tour[q+1]);
+    return {tour:tour, served:served, hours:t+dist(cur,DEPOT)*scale/SPEED_KMH, len:len};
+  }
+
+  function compute(){
+    var scale=kmScale(), plan=planRound();
+    ROUTE=plan.tour;
+    $("#r-served").textContent=plan.served.length;
+    $("#r-km").textContent=(plan.len*scale).toFixed(0)+" km";
+    $("#r-shift").textContent=plan.hours.toFixed(1)+"h";
+  }
+
+  function drawCurve(){
+    var w=cvc.width,h=cvc.height, ACC=css("--accent"), LINE=css("--line"), FAINT=css("--faint");
+    cc.clearRect(0,0,w,h);
+    cc.strokeStyle=LINE;cc.lineWidth=1;
+    cc.beginPath();cc.moveTo(0,h-1);cc.lineTo(w,h-1);cc.moveTo(1,0);cc.lineTo(1,h);cc.stroke();
+    cc.strokeStyle=ACC;cc.lineWidth=2;cc.beginPath();
+    for(var px=0;px<=w;px++){
+      var f=px/w*100, y=h-2-priority(f)*(h-6);
+      px?cc.lineTo(px,y):cc.moveTo(px,y);
+    }
+    cc.stroke();
+    cc.fillStyle=FAINT;cc.font='9px ui-monospace,monospace';
+    cc.fillText("0%",2,h-3); cc.fillText("fill 100%",w-44,h-3);
+  }
+
+  function drawNet(){
+    if(!W)return;
+    var LINE=css("--line"),FAINT=css("--faint"),ACC=css("--accent"),INK=css("--ink"),BG=css("--bg-2");
+    ctx.clearRect(0,0,W,H); ctx.fillStyle=BG; ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle=LINE;ctx.lineWidth=1;
+    EDGES.forEach(function(e){ctx.beginPath();ctx.moveTo(e[0].x,e[0].y);ctx.lineTo(e[1].x,e[1].y);ctx.stroke()});
+    ctx.fillStyle=FAINT;
+    NODES.forEach(function(n){ctx.beginPath();ctx.arc(n.x,n.y,1.5,0,7);ctx.fill()});
+    if(ROUTE.length>1){
+      var segs=[],tot=0;
+      for(var i=0;i<ROUTE.length-1;i++){var l=dist(ROUTE[i],ROUTE[i+1]);segs.push({a:ROUTE[i],b:ROUTE[i+1],l:l});tot+=l}
+      var want=tot*prog,acc=0;
+      ctx.strokeStyle=ACC;ctx.lineWidth=2.4;ctx.lineJoin="round";ctx.lineCap="round";
+      ctx.beginPath();ctx.moveTo(ROUTE[0].x,ROUTE[0].y);
+      for(var sI=0;sI<segs.length;sI++){
+        if(acc+segs[sI].l<=want){ctx.lineTo(segs[sI].b.x,segs[sI].b.y);acc+=segs[sI].l}
+        else{var f=Math.max(0,(want-acc)/segs[sI].l);
+          ctx.lineTo(segs[sI].a.x+(segs[sI].b.x-segs[sI].a.x)*f,segs[sI].a.y+(segs[sI].b.y-segs[sI].a.y)*f);break}
+      }
+      ctx.stroke();
+    }
+    var inRoute=new Set(ROUTE);
+    BINS.forEach(function(b){
+      var pr=priority(b.fill), on=inRoute.has(b.n), R=3+pr*4.6;
+      ctx.beginPath();ctx.arc(b.n.x,b.n.y,R,0,7);
+      if(on){ctx.fillStyle=ACC;ctx.globalAlpha=.35+pr*.65;ctx.fill();ctx.globalAlpha=1}
+      ctx.strokeStyle=on?ACC:FAINT;ctx.lineWidth=1.3;ctx.stroke();
+    });
+    if(DEPOT){ctx.fillStyle=INK;ctx.fillRect(DEPOT.x-4.5,DEPOT.y-4.5,9,9)}
+  }
+
+  function resize(){
+    var rect=cv.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);
+    W=rect.width;H=rect.height||300;
+    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    var cd=Math.min(window.devicePixelRatio||1,2);
+    cvc.width=132*cd;cvc.height=76*cd;cvc.style.width="132px";cvc.style.height="76px";
+    cc.setTransform(cd,0,0,cd,0,0);cvc.width=132*cd;
+    cc.setTransform(cd,0,0,cd,0,0);
+    build();compute();prog=1;drawNet();drawCurve();
+  }
+
+  function run(){
+    compute();
+    if(reduce){prog=1;drawNet();return}
+    if(anim)cancelAnimationFrame(anim);
+    var t0=null;
+    (function step(ts){
+      if(t0===null)t0=ts;
+      prog=Math.min(1,(ts-t0)/1400); drawNet();
+      if(prog<1) anim=requestAnimationFrame(step);
+    })(performance.now());
+  }
+
+  function paramChanged(){
+    $("#kv").textContent=kEl.value;
+    $("#x0v").textContent=(parseFloat(x0El.value)/100).toFixed(2);
+    drawCurve(); compute(); prog=1; drawNet();
+  }
+  kEl.addEventListener("input",paramChanged);
+  x0El.addEventListener("input",paramChanged);
+  $("#run").addEventListener("click",function(){build();run()});
+  var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(resize,180)});
+
+  /* ================= SEGMENT SCORER ================= */
+  var N=12, segData=[], cur=0;
+  for(var i=0;i<N;i++) segData.push({t:3,f:3});
+  var segsEl=$("#segs");
+  function ramp(v){return css("--s"+Math.max(1,Math.min(5,v)))}
+  function verdictOf(t,f){
+    var s=t+f;
+    if(s<=3) return "failing, priority intervention";
+    if(s<=5) return "degraded, intervention likely";
+    if(s<=7) return "moderate, watch";
+    if(s<=8) return "sound, maintain";
+    return "intact, multifunctional potential";
+  }
+  function paintSegs(){
+    [].forEach.call(segsEl.children,function(b,i){
+      var d=segData[i];
+      b.style.background=ramp(Math.round((d.t+d.f)/2));
+      b.setAttribute("aria-pressed",String(i===cur));
+    });
+  }
+  function paintScores(){
+    var d=segData[cur];
+    $("#v-tech").textContent=d.t; $("#v-func").textContent=d.f;
+    $("#v-sum").textContent=d.t+d.f;
+    $("#verdict").textContent=verdictOf(d.t,d.f);
+    $("#seg-id").textContent="segment "+(cur+1)+" of "+N;
+    [].forEach.call($("#p-tech").children,function(p,i){p.setAttribute("aria-pressed",String(i+1===d.t))});
+    [].forEach.call($("#p-func").children,function(p,i){p.setAttribute("aria-pressed",String(i+1===d.f))});
+    var mt=segData.reduce(function(a,x){return a+x.t},0)/N, mf=segData.reduce(function(a,x){return a+x.f},0)/N;
+    $("#c-mean").textContent=mt.toFixed(1); $("#c-fmean").textContent=mf.toFixed(1);
+  }
+  for(var i2=0;i2<N;i2++){
+    var b=document.createElement("button");
+    b.className="seg"; b.type="button"; b.setAttribute("aria-label","Canal segment "+(i2+1));
+    b.dataset.i=i2;
+    b.addEventListener("click",function(){cur=parseInt(this.dataset.i,10);paintSegs();paintScores()});
+    segsEl.appendChild(b);
+  }
+  ["p-tech","p-func"].forEach(function(id){
+    var el=document.getElementById(id);
+    for(var v=1;v<=5;v++){
+      var p=document.createElement("button");
+      p.className="pip"; p.type="button"; p.textContent=v; p.dataset.v=v;
+      p.setAttribute("aria-label",(id==="p-tech"?"Technical":"Functional")+" score "+v);
+      p.addEventListener("click",function(){
+        var val=parseInt(this.dataset.v,10);
+        if(id==="p-tech") segData[cur].t=val; else segData[cur].f=val;
+        paintSegs(); paintScores();
+      });
+      el.appendChild(p);
+    }
   });
+
+  /* ================= LAYER TOGGLE ================= */
+  var layers=$("#layers"), lcap=$("#lcap");
+  var caps={
+    base:"Every walkable connection pulled from OpenStreetMap and filtered by hand. The starting point, before the network is classified.",
+    full:"The finished network, classified into the CROW three-layer model: base, main and green-recreational."
+  };
+  $$(".lswitch button").forEach(function(b){
+    b.addEventListener("click",function(){
+      $$(".lswitch button").forEach(function(o){o.setAttribute("aria-pressed",String(o===b))});
+      var k=b.dataset.layer;
+      layers.classList.toggle("on", k==="full");
+      lcap.textContent=caps[k];
+    });
+  });
+
+  /* ================= copy ================= */
+  var copy=$("#copy"), addr=$("#addr"), lab=copy.textContent;
+  copy.addEventListener("click",function(){
+    var back=function(){setTimeout(function(){copy.textContent=lab},1800)};
+    function sel(){try{var r=document.createRange();r.selectNodeContents(addr);
+      var s=window.getSelection();s.removeAllRanges();s.addRange(r);
+      copy.textContent="Selected, press copy";back()}catch(e){copy.textContent="Select it manually";back()}}
+    try{navigator.clipboard.writeText(addr.textContent.trim()).then(function(){copy.textContent="Copied";back()},sel)}
+    catch(e){sel()}
+  });
+
+  /* ---- boot ---- */
+  paintSegs(); paintScores();
+  function boot(){ resize(); if(!reduce){prog=0;run()} }
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(boot); else boot();
 })();
 </script>
 
