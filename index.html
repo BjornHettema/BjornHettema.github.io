@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bjorn Hettema</title>
+<meta name="description" content="Bjorn Hettema - spatial planner working across urban water, mobility and urban data in the Netherlands and Southeast Asia.">
+<link rel="canonical" href="https://bjornhettema.github.io/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#2F6F62" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141A19" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="Bjorn Hettema">
+<meta property="og:description" content="I help cities figure out how they actually work.">
+<meta property="og:image" content="https://bjornhettema.github.io/me.jpg">
+<meta property="og:url" content="https://bjornhettema.github.io/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  body{margin:0}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Karla:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    color-scheme: light;
+    --bg:#F6F4F0;
+    --surface:#FFFFFF;
+    --surface-2:#EFEDE7;
+    --ink:#222B2A;
+    --muted:#5E6B68;
+    --faint:#8A9793;
+    --line:#DFDCD4;
+    --line-soft:#EAE7E0;
+    --accent:#2F6F62;
+    --accent-ink:#FFFFFF;
+    --accent-soft:#DCEAE5;
+    --warm:#B5713F;
+    --warm-soft:#F2E4D7;
+    --shadow:0 1px 2px rgba(34,43,42,.05), 0 8px 28px rgba(34,43,42,.06);
+    --display:"Fraunces", Georgia, "Times New Roman", serif;
+    --sans:"Karla", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --r:14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --bg:#141A19;
+      --surface:#1C2423;
+      --surface-2:#232D2C;
+      --ink:#E9EEEC;
+      --muted:#9EACA8;
+      --faint:#778783;
+      --line:#2C3836;
+      --line-soft:#232E2C;
+      --accent:#74B7A6;
+      --accent-ink:#0E1716;
+      --accent-soft:#1D3833;
+      --warm:#D4956C;
+      --warm-soft:#33261D;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 30px rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --bg:#141A19; --surface:#1C2423; --surface-2:#232D2C; --ink:#E9EEEC;
+    --muted:#9EACA8; --faint:#778783; --line:#2C3836; --line-soft:#232E2C;
+    --accent:#74B7A6; --accent-ink:#0E1716; --accent-soft:#1D3833;
+    --warm:#D4956C; --warm-soft:#33261D;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 30px rgba(0,0,0,.3);
+  }
+
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.68;margin:0}
+  .wrap{max-width:940px;margin:0 auto;padding-inline:16px}
+  a{color:var(--accent);text-underline-offset:3px}
+  ::selection{background:var(--accent-soft)}
+  h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.018em;text-wrap:balance;margin:0}
+  p{margin:0 0 16px;max-width:36em}
+  p:last-child{margin-bottom:0}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+  /* ---------- nav ---------- */
+  nav.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;
+    background:var(--bg);background:color-mix(in srgb,var(--bg) 90%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+  .bar-in{max-width:940px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:14px}
+  .brand{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.01em;color:var(--ink);text-decoration:none;margin-right:auto}
+  .navlinks{display:flex;gap:4px}
+  .navlinks a{font-size:14.5px;font-weight:500;color:var(--muted);text-decoration:none;padding:6px 11px;border-radius:999px}
+  .navlinks a:hover{background:var(--surface-2);color:var(--ink)}
+  .navlinks a.on{background:var(--accent-soft);color:var(--accent)}
+  @media (max-width:640px){.navlinks{display:none}}
+  .tglt{border:1px solid var(--line);background:var(--surface);color:var(--muted);
+    width:34px;height:34px;border-radius:999px;cursor:pointer;display:grid;place-items:center;flex:none;font-size:15px}
+  .tglt:hover{color:var(--ink)}
+
+  /* ---------- hero ---------- */
+  .hero{padding-block:54px 14px;display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center}
+  @media (max-width:700px){.hero{grid-template-columns:1fr;padding-block:36px 8px}}
+  .hi{font-size:15px;font-weight:600;color:var(--accent);margin:0 0 10px;letter-spacing:.01em}
+  h1{font-size:clamp(36px,6.4vw,60px);line-height:1.06;margin-bottom:16px}
+  .lede{font-size:clamp(17px,2.2vw,20px);line-height:1.6;color:var(--muted);max-width:30em;margin-bottom:24px}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:9px}
+  .btn{font-family:var(--sans);font-size:14.5px;font-weight:600;cursor:pointer;text-decoration:none;
+    border-radius:999px;padding:10px 19px;border:1px solid var(--line);background:var(--surface);color:var(--ink);
+    display:inline-flex;align-items:center;gap:7px}
+  .btn:hover{background:var(--surface-2)}
+  .btn.solid{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+  .btn.solid:hover{filter:brightness(1.07)}
+  .avatar{width:138px;height:138px;border-radius:999px;background:var(--accent-soft);color:var(--accent);
+    display:grid;place-items:center;font-family:var(--display);font-size:44px;font-weight:600;
+    border:1px solid var(--line);overflow:hidden;justify-self:end}
+  .avatar img{width:100%;height:100%;object-fit:cover}
+  @media (max-width:700px){.avatar{width:96px;height:96px;font-size:32px;justify-self:start}}
+
+  /* ---------- journey ---------- */
+  .journey{margin-block:34px 8px;background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--r);padding:22px 20px 18px;box-shadow:var(--shadow)}
+  .journey h2{font-size:19px;margin-bottom:4px}
+  .journey .sub{font-size:14px;color:var(--muted);margin-bottom:16px}
+  .stops{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+  .stop{flex:1 1 0;min-width:132px;text-align:left;cursor:pointer;background:var(--surface-2);
+    border:1px solid transparent;border-radius:10px;padding:11px 12px;font-family:var(--sans);color:var(--ink)}
+  .stop:hover{border-color:var(--accent);background:var(--accent-soft)}
+  .stop .yr{font-size:12px;font-weight:700;color:var(--warm);letter-spacing:.04em}
+  .stop .pl{font-size:14.5px;font-weight:600;line-height:1.3;margin-top:2px}
+  .stop .wh{font-size:12.5px;color:var(--muted);line-height:1.4;margin-top:3px}
+
+  /* ---------- sections ---------- */
+  section.band{padding-block:44px}
+  .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);margin:0 0 9px}
+  h2.big{font-size:clamp(25px,3.6vw,33px);line-height:1.16;margin-bottom:12px}
+
+  /* ---------- filters ---------- */
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-block:18px 22px}
+  .chip{font-family:var(--sans);font-size:13.5px;font-weight:600;cursor:pointer;border-radius:999px;
+    padding:7px 14px;border:1px solid var(--line);background:var(--surface);color:var(--muted)}
+  .chip:hover{color:var(--ink)}
+  .chip[aria-pressed="true"]{background:var(--accent);border-color:transparent;color:var(--accent-ink)}
+
+  /* ---------- project cards ---------- */
+  .cards{display:grid;gap:14px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+    padding:22px 22px 18px;box-shadow:var(--shadow);scroll-margin-top:86px}
+  .card.flash{animation:flash 1.4s ease}
+  @keyframes flash{0%{border-color:var(--warm);box-shadow:0 0 0 4px var(--warm-soft)}100%{}}
+  .card .where{font-size:13px;font-weight:600;color:var(--warm);letter-spacing:.02em;margin:0 0 6px}
+  .card h3{font-size:22px;line-height:1.22;margin-bottom:8px}
+  .card .lead{color:var(--muted);margin-bottom:0}
+  .more{margin-top:14px;border-top:1px solid var(--line-soft);padding-top:14px}
+  .more p{font-size:15.2px}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;margin:0 0 14px;font-size:14.5px}
+  .kv dt{font-weight:700;color:var(--accent)}
+  .kv dd{margin:0;color:var(--muted)}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0;padding:0;list-style:none}
+  .tags li{font-size:12.5px;font-weight:600;color:var(--muted);background:var(--surface-2);
+    border-radius:999px;padding:4px 11px}
+  .toggle{margin-top:15px;display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);
+    font-size:14px;font-weight:600;color:var(--accent);background:none;border:0;cursor:pointer;padding:0}
+  .toggle .ar{transition:transform .2s ease;display:inline-block}
+  .toggle[aria-expanded="true"] .ar{transform:rotate(180deg)}
+  .srcs{font-size:14px;color:var(--muted);margin-top:12px}
+
+  /* ---------- about ---------- */
+  .aboutgrid{display:grid;grid-template-columns:1fr 264px;gap:34px;align-items:start}
+  @media (max-width:760px){.aboutgrid{grid-template-columns:1fr;gap:22px}}
+  .facts{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow)}
+  .facts h4{font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin:0 0 11px}
+  .facts dl{display:grid;gap:9px;margin:0;font-size:14.5px}
+  .facts dt{font-weight:700;font-size:12.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.05em}
+  .facts dd{margin:0 0 2px;color:var(--ink)}
+
+  /* ---------- record ---------- */
+  .rec{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+  .rec li{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:15px 17px}
+  .rec .src{font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:4px}
+  .rec p{font-size:14.8px;margin:0;color:var(--muted);max-width:46em}
+
+  /* ---------- contact ---------- */
+  .ccard{background:var(--accent-soft);border:1px solid var(--line);border-radius:var(--r);padding:28px 26px}
+  .ccard h2{font-size:clamp(23px,3.2vw,30px);margin-bottom:10px}
+  .ccard p{color:var(--muted)}
+  .addr{font-weight:700;font-size:16px;color:var(--ink);background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;padding:9px 16px;user-select:all;word-break:break-all;
+    display:inline-block}
+  .row{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:14px}
+
+  footer.end{border-top:1px solid var(--line-soft);margin-top:12px;padding-block:22px 44px;
+    font-size:13.5px;color:var(--faint);display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between}
+  .top{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:30;
+    width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:var(--surface);
+    color:var(--muted);cursor:pointer;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .25s}
+  .top.show{opacity:1;pointer-events:auto}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+  html{scroll-behavior:smooth}
+</style>
+
+</head>
+<body>
+<nav class="bar">
+  <div class="bar-in">
+    <a class="brand" href="#top">Bjorn Hettema</a>
+    <div class="navlinks">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#record">Record</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="tglt" id="theme" type="button" aria-label="Switch between light and dark">◐</button>
+  </div>
+</nav>
+
+<div class="wrap" id="top">
+
+  <header class="hero">
+    <div>
+      <p class="hi">Hello, I'm Bjorn</p>
+      <h1>I help cities figure out how they actually work.</h1>
+      <p class="lede">A spatial planner who came up through engineering, so I can read a zoning
+        framework and write the software underneath it. <b>Right now I'm in Bangkok, working on
+        water, mobility and the messier parts of urban data.</b></p>
+      <div class="cta">
+        <a class="btn solid" href="#work">See the work</a>
+        <a class="btn" href="cv/CV-BjornHettema-urban-water-research.docx">Download CV</a>
+      </div>
+    </div>
+    <div class="avatar"><img src="me.jpg" alt="Bjorn Hettema" width="440" height="440" decoding="async"></div>
+  </header>
+
+  <div class="journey">
+    <h2>Where the work happened</h2>
+    <p class="sub">Five places over eight years. Pick one to jump to what I did there.</p>
+    <div class="stops">
+      <button class="stop" data-go="p-deventer"><span class="yr">2018 — 2026</span><span class="pl">Deventer, NL</span><span class="wh">Engineering first, then planning</span></button>
+      <button class="stop" data-go="p-albania"><span class="yr">2024</span><span class="pl">Tirana, AL</span><span class="wh">Accessible public space</span></button>
+      <button class="stop" data-go="p-vollebak"><span class="yr">2025</span><span class="pl">Ho Chi Minh City, VN</span><span class="wh">Smart waste and routing</span></button>
+      <button class="stop" data-go="p-canals"><span class="yr">2026</span><span class="pl">Semarang, ID</span><span class="wh">Canals and quay walls</span></button>
+      <button class="stop" data-go="contact"><span class="yr">Now</span><span class="pl">Bangkok, TH</span><span class="wh">Open to new work</span></button>
+    </div>
+  </div>
+
+  <section class="band" id="work">
+    <p class="eyebrow">Selected work</p>
+    <h2 class="big">Six projects, four countries</h2>
+    <p>Each one started as somebody's real problem. Open any card for the methods and my actual role in it.</p>
+
+    <div class="chips" role="group" aria-label="Filter projects">
+      <button class="chip" data-f="all" aria-pressed="true">Everything</button>
+      <button class="chip" data-f="water" aria-pressed="false">Water &amp; climate</button>
+      <button class="chip" data-f="mobility" aria-pressed="false">Mobility</button>
+      <button class="chip" data-f="data" aria-pressed="false">Data &amp; software</button>
+      <button class="chip" data-f="intl" aria-pressed="false">International</button>
+    </div>
+
+    <div class="cards" id="cards">
+
+      <article class="card" id="p-vollebak" data-t="data mobility intl">
+        <p class="where">Ho Chi Minh City, Vietnam · 2025</p>
+        <h3>Bins that tell the truck when they're full</h3>
+        <p class="lead">Vollebak puts fill-level sensors inside public waste bins. I built the program that
+          turns those readings into a collection route, so trucks stop driving past empty bins.</p>
+        <button class="toggle" aria-expanded="false">More about this <span class="ar">⌄</span></button>
+        <div class="more" hidden>
+          <dl class="kv">
+            <dt>My role</dt><dd>Built the routing program</dd>
+            <dt>With</dt><dd>Hosoco, Ton Duc Thang University, Saxion</dd>
+          </dl>
+          <p>The road network is modelled as a weighted graph of intersections, bins and depot, with cached
+            shortest paths and a nearest-insertion heuristic to build the round. When a bin crosses its
+            threshold mid-route, the route recalculates around it.</p>
+          <p>The harder question was which bins deserve a stop at all. I compared four ways of deciding,
+            from simple thresholds to one that prices the risk of a bin overflowing rather than reading its
+            current level, then tested those against the three commercial routing services that could carry
+            them.</p>
+          <ul class="tags"><li>Python</li><li>Google Routes API</li><li>Graph modelling</li><li>Heuristics</li><li>IoT sensors</li></ul>
+          <p class="srcs"><a href="https://civil.tdtu.edu.vn/en/news-events/2026/strengthening-global-academic-ties-dutch-student-bjorn-hettemas-internship-urban" target="_blank" rel="noopener">TDTU wrote about it</a> · <a href="https://fip.utwente.nl/nl/project/vollebak/" target="_blank" rel="noopener">project page</a></p>
+        </div>
+      </article>
+
+      <article class="card" id="p-canals" data-t="water intl">
+        <p class="where">Semarang, Jakarta &amp; Surabaya, Indonesia · 2026</p>
+        <h3>Four-hundred-year-old canals, sinking cities</h3>
+        <p class="lead">Java's colonial-era canal systems still carry the water, but the ground is dropping
+          and the sea is rising. I spent five months working out which stretches can still be saved, and
+          what they could become.</p>
+        <button class="toggle" aria-expanded="false">More about this <span class="ar">⌄</span></button>
+        <div class="more" hidden>
+          <dl class="kv">
+            <dt>My role</dt><dd>Sole author, named lead researcher</dd>
+            <dt>With</dt><dd>Saxion SAST and Universitas Diponegoro · graded 4.0</dd>
+          </dl>
+          <p>I built a scoring method for individual canal segments and applied it identically in all three
+            cities, so the cases could actually be compared rather than just described. That was
+            triangulated with historical document analysis, QGIS overlays of the original network against
+            the current one, and photographic validation on site.</p>
+          <p>The study sits inside the Dutch City Deal "Timeless Canals" and was set up to run in both
+            directions, so what Java teaches goes back to the Dutch partners as well.</p>
+          <ul class="tags"><li>QGIS</li><li>Comparative case study</li><li>Field survey</li><li>Governance mapping</li><li>Climate adaptation</li></ul>
+          <p class="srcs"><a href="https://pasca.undip.ac.id/en/collaboration-between-sps-undip-and-saxion-university-on-researching-the-history-of-canal-transformation-of-the-javanese-shore/" target="_blank" rel="noopener">UNDIP wrote about it</a></p>
+        </div>
+      </article>
+
+      <article class="card" id="p-deventer" data-t="mobility data">
+        <p class="where">Deventer, Netherlands · 2026</p>
+        <h3>A city measured at walking pace</h3>
+        <p class="lead">Goudappel asked what a genuinely good pedestrian network for Deventer would look
+          like. We built one, then went out and counted whether people actually used it that way.</p>
+        <button class="toggle" aria-expanded="false">More about this <span class="ar">⌄</span></button>
+        <div class="more" hidden>
+          <dl class="kv">
+            <dt>My role</dt><dd>Digital analysis and methodology</dd>
+            <dt>With</dt><dd>Client: Goudappel · Saxion StadsLAB</dd>
+          </dl>
+          <p>I wrote the queries that pulled the base network out of OpenStreetMap and filtered it against
+            explicit rules: alleys, cut-throughs, bridges and tunnels in, private land out. That became four
+            network maps built to the Dutch national standard.</p>
+          <p>Intensities came from Goudappel's mobility panel, checked against our own counts at three
+            locations. The two datasets did not agree, and what we concluded was that the hard numbers only
+            make sense with street-level observation sitting next to them.</p>
+          <ul class="tags"><li>OpenStreetMap</li><li>Overpass Turbo</li><li>QGIS</li><li>CROW standard</li><li>Survey design</li></ul>
+        </div>
+      </article>
+
+      <article class="card" id="p-twente" data-t="water data">
+        <p class="where">Twente region, Netherlands · 2023 – 2025</p>
+        <h3>Building on what the ground can take</h3>
+        <p class="lead">A national programme asking municipalities to let soil and water decide where
+          development goes, instead of the other way round. I helped turn that principle into a work plan
+          they could use.</p>
+        <button class="toggle" aria-expanded="false">More about this <span class="ar">⌄</span></button>
+        <div class="more" hidden>
+          <dl class="kv">
+            <dt>My role</dt><dd>Analysis and recommendations</dd>
+            <dt>With</dt><dd>Saxion and municipalities across Twente</dd>
+          </dl>
+          <p>Demographic analysis in R and GIS-based suitability mapping underpinned the recommendations,
+            which came down to which areas can carry growth and which ones the subsurface quietly rules out.</p>
+          <ul class="tags"><li>R</li><li>Suitability mapping</li><li>Demographic analysis</li><li>Policy translation</li></ul>
+        </div>
+      </article>
+
+      <article class="card" id="p-albania" data-t="mobility intl">
+        <p class="where">Tirana, Albania &amp; the Netherlands · 2024</p>
+        <h3>Who actually gets to use a public square</h3>
+        <p class="lead">Two countries with very different starting points, the same question: can everyone
+          reach and use the public space, or only some people?</p>
+        <button class="toggle" aria-expanded="false">More about this <span class="ar">⌄</span></button>
+        <div class="more" hidden>
+          <dl class="kv">
+            <dt>My role</dt><dd>Comparative analysis</dd>
+            <dt>With</dt><dd>Universiteti Politeknik i Tiranës and Saxion</dd>
+          </dl>
+          <p>Comparative spatial analysis of squares, transport hubs and parks across Dutch and Albanian
+            sites, ending in spatial and policy recommendations for walkability and social inclusion.</p>
+          <ul class="tags"><li>Comparative analysis</li><li>Accessibility</li><li>Public space</li></ul>
+        </div>
+      </article>
+
+      <article class="card" id="p-erasmus" data-t="water intl">
+        <p class="where">Netherlands · 2025</p>
+        <h3>A car park that could hold a rainstorm</h3>
+        <p class="lead">An Erasmus+ programme with an international team, reimagining a station-area
+          parking site as something that absorbs water instead of shedding it.</p>
+        <button class="toggle" aria-expanded="false">More about this <span class="ar">⌄</span></button>
+        <div class="more" hidden>
+          <dl class="kv">
+            <dt>My role</dt><dd>Team member</dd>
+            <dt>Presented to</dt><dd>Witteveen+Bos</dd>
+          </dl>
+          <p>We built a regenerative vision turning the site into a climate-resilient, multifunctional
+            public space, and presented the recommendations to the engineering firm behind the area.</p>
+          <ul class="tags"><li>Climate adaptation</li><li>Area development</li><li>Erasmus+</li></ul>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="band" id="about">
+    <p class="eyebrow">About</p>
+    <h2 class="big">The engineering came first</h2>
+    <div class="aboutgrid">
+      <div>
+        <p>I spent three years on electrical engineering and technical informatics before switching into
+          spatial development. At the time it felt like starting over. It turned out to be the most useful
+          thing I did, because the problems I care about now sit exactly between the two.</p>
+        <p>A routing algorithm and a zoning framework are both readable to me. That is a smaller club than
+          it should be, and it means I can usually take a project from the policy question all the way to
+          the thing that runs.</p>
+        <p>Fifteen months of that has been fieldwork in Southeast Asia, and it changed how I work. You
+          cannot assess a canal from a desk in Deventer. Both host universities published accounts of what
+          I did there, which I am still quietly pleased about.</p>
+      </div>
+      <aside class="facts">
+        <h4>At a glance</h4>
+        <dl>
+          <dt>Based</dt><dd>Bangkok, Thailand</dd>
+          <dt>From</dt><dd>Deventer, Netherlands</dd>
+          <dt>Degree</dt><dd>B.Sc. Spatial Development, Saxion</dd>
+          <dt>Tools</dt><dd>QGIS, ArcGIS, Python, R, OpenStreetMap</dd>
+          <dt>Also</dt><dd>Certified UAS A1/A3 drone operator</dd>
+          <dt>Languages</dt><dd>Dutch, English, German, some Vietnamese</dd>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <section class="band" id="record">
+    <p class="eyebrow">Published record</p>
+    <h2 class="big">Other people's write-ups</h2>
+    <p>Four places where the work is documented by someone other than me.</p>
+    <ul class="rec">
+      <li><span class="src">Ton Duc Thang University</span>
+        <p>The Faculty of Civil Engineering wrote up the smart-cities internship and awarded a certificate for research achievement and collaboration. <a href="https://civil.tdtu.edu.vn/en/news-events/2026/strengthening-global-academic-ties-dutch-student-bjorn-hettemas-internship-urban" target="_blank" rel="noopener">Read it</a></p></li>
+      <li><span class="src">Universitas Diponegoro</span>
+        <p>The Postgraduate School's account of the Saxion–UNDIP canal collaboration, naming me lead researcher alongside a lecturer and three master's students. <a href="https://pasca.undip.ac.id/en/collaboration-between-sps-undip-and-saxion-university-on-researching-the-history-of-canal-transformation-of-the-javanese-shore/" target="_blank" rel="noopener">Read it</a></p></li>
+      <li><span class="src">s.v. Watt</span>
+        <p>The study association's Wall of Fame, listing me as chairman of the 18th, 19th and 20th boards between 2021 and 2022. <a href="https://svwatt.com/en/association/board/wall-of-fame/" target="_blank" rel="noopener">Read it</a></p></li>
+      <li><span class="src">University of Twente</span>
+        <p>The Vollebak project page: affordable sensing for public waste bins, with Robor Electronics and WesterikICT. <a href="https://fip.utwente.nl/nl/project/vollebak/" target="_blank" rel="noopener">Read it</a></p></li>
+    </ul>
+  </section>
+
+  <section class="band" id="contact">
+    <div class="ccard">
+      <p class="eyebrow">Contact</p>
+      <h2>Tell me what you're working on</h2>
+      <p>I'm open to urban data and geospatial work, applied research on water and climate adaptation, and
+        smart-city projects. Remote, or based in Southeast Asia. I answer everything.</p>
+      <div class="row">
+        <span class="addr" id="addr">contact.hettema@gmail.com</span>
+        <button class="btn" id="copy" type="button">Copy address</button>
+        <a class="btn" href="https://www.linkedin.com/in/bjorn-hettema-02286515b/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <div class="row">
+        <a class="btn" href="cv/CV-BjornHettema-urban-water-research.docx">CV — water &amp; research</a>
+        <a class="btn" href="cv/CV-BjornHettema-urban-data-geospatial.docx">CV — data &amp; geospatial</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="end">
+    <span>Bjorn Hettema · Spatial Development</span>
+    <span>Deventer · Bangkok</span>
+  </footer>
+</div>
+
+<button class="top" id="totop" type="button" aria-label="Back to top">↑</button>
+
+<script>
+(function(){
+  "use strict";
+  var $ = function(s, r){ return (r||document).querySelector(s); };
+  var $$ = function(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+
+  /* ---- theme ---- */
+  var root = document.documentElement, tbtn = $("#theme");
+  try { var saved = localStorage.getItem("bh-theme"); if (saved) root.setAttribute("data-theme", saved); } catch(e){}
+  tbtn.addEventListener("click", function(){
+    var cur = root.getAttribute("data-theme");
+    var dark = cur ? cur === "dark"
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var next = dark ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("bh-theme", next); } catch(e){}
+  });
+
+  /* ---- expandable cards ---- */
+  $$(".toggle").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var open = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!open));
+      var panel = btn.parentNode.querySelector(".more");
+      panel.hidden = open;
+      btn.firstChild.nodeValue = open ? "More about this " : "Less ";
+    });
+  });
+
+  /* ---- filters ---- */
+  var chips = $$(".chip"), cards = $$("#cards .card");
+  chips.forEach(function(c){
+    c.addEventListener("click", function(){
+      chips.forEach(function(o){ o.setAttribute("aria-pressed", String(o === c)); });
+      var f = c.getAttribute("data-f");
+      cards.forEach(function(card){
+        card.hidden = !(f === "all" || (card.getAttribute("data-t") || "").indexOf(f) > -1);
+      });
+    });
+  });
+
+  /* ---- journey stops ---- */
+  $$(".stop").forEach(function(s){
+    s.addEventListener("click", function(){
+      var id = s.getAttribute("data-go"), el = document.getElementById(id);
+      if (!el) return;
+      chips.forEach(function(o){ o.setAttribute("aria-pressed", String(o.getAttribute("data-f") === "all")); });
+      cards.forEach(function(c){ c.hidden = false; });
+      el.scrollIntoView({behavior:"smooth", block:"start"});
+      if (el.classList.contains("card")){
+        el.classList.remove("flash");
+        void el.offsetWidth;
+        el.classList.add("flash");
+        var t = el.querySelector(".toggle");
+        if (t && t.getAttribute("aria-expanded") === "false") t.click();
+      }
+    });
+  });
+
+  /* ---- copy ---- */
+  var copy = $("#copy"), addr = $("#addr");
+  copy.addEventListener("click", function(){
+    var reset = function(){ setTimeout(function(){ copy.textContent = "Copy address"; }, 1700); };
+    function fallback(){
+      try{
+        var r = document.createRange(); r.selectNodeContents(addr);
+        var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+        copy.textContent = "Selected — press copy"; reset();
+      } catch(e){ copy.textContent = "Select it manually"; reset(); }
+    }
+    try {
+      navigator.clipboard.writeText(addr.textContent.trim()).then(function(){
+        copy.textContent = "Copied"; reset();
+      }, fallback);
+    } catch(e){ fallback(); }
+  });
+
+  /* ---- nav highlight + back to top ---- */
+  var links = $$(".navlinks a"), totop = $("#totop");
+  var secs = ["work","about","record","contact"].map(function(id){ return document.getElementById(id); });
+  function onScroll(){
+    var y = window.scrollY + 120, active = null;
+    secs.forEach(function(s){ if (s && s.offsetTop <= y) active = s.id; });
+    links.forEach(function(a){ a.classList.toggle("on", a.getAttribute("href") === "#" + active); });
+    totop.classList.toggle("show", window.scrollY > 700);
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
+  totop.addEventListener("click", function(){ window.scrollTo({top:0, behavior:"smooth"}); });
+})();
+</script>
+
+</body>
+</html>
