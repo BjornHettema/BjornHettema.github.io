@@ -166,14 +166,15 @@
   .pip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:transparent;font-weight:600}
 
   /* ---------- layer toggle ---------- */
-  .layers{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--surface)}
-  .layers img{width:100%;display:block}
-  .layers img.b{position:absolute;inset:0;opacity:0;transition:opacity .45s cubic-bezier(.16,1,.3,1)}
-  .layers.on img.b{opacity:1}
-  .lswitch{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;
-    background:var(--surface);margin-bottom:12px}
+  .layers{position:relative;aspect-ratio:1600/1131;border-radius:var(--r);overflow:hidden;
+    border:1px solid var(--line);background:var(--surface)}
+  .layers img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+    opacity:0;transition:opacity .42s cubic-bezier(.16,1,.3,1)}
+  .layers img[data-on]{opacity:1}
+  .lswitch{display:inline-flex;flex-wrap:wrap;gap:2px;padding:3px;border:1px solid var(--line);
+    border-radius:999px;background:var(--surface);margin-bottom:12px}
   .lswitch button{font-family:var(--sans);font-size:13px;font-weight:500;border:0;cursor:pointer;
-    border-radius:999px;padding:7px 15px;background:transparent;color:var(--muted)}
+    border-radius:999px;padding:7px 15px;background:transparent;color:var(--muted);white-space:nowrap}
   .lswitch button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:600}
 
   .cap{font-family:var(--mono);font-size:11.5px;color:var(--faint);line-height:1.6;margin-top:10px;max-width:52ch}
@@ -231,6 +232,47 @@
     .io-ready.io-in{opacity:1;transform:none}
   }
   @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+
+  /* ---------- depot planner ---------- */
+  #net{height:270px}
+  @media (max-width:560px){#net{height:218px}}
+  .dials{display:grid;gap:13px;margin-top:15px}
+  .dial{display:grid;grid-template-columns:1fr auto;gap:5px 12px;align-items:baseline}
+  .dial-l{font-size:13.5px;color:var(--muted)}
+  .dial-v{font-family:var(--mono);font-size:13px;color:var(--accent);
+    text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .dial input[type=range]{grid-column:1/-1;width:100%;margin:2px 0 0}
+
+  .docket{margin:0 14px 14px;background:var(--surface-2);border-radius:0 0 10px 10px;
+    border:1px solid var(--line);border-top:0}
+  .docket[hidden]{display:none}
+  .docket::before{content:"";display:block;height:9px;background:
+    radial-gradient(circle at 5px 0,transparent 4.6px,var(--surface-2) 4.7px) 0 0/10px 9px repeat-x}
+  .dk-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+    padding:2px 15px 9px;font-family:var(--mono);font-size:11px;color:var(--faint);
+    letter-spacing:.09em;border-bottom:1px dashed var(--line)}
+  .dk-head b{color:var(--ink);font-weight:500}
+  .dk-scroll{max-height:216px;overflow:auto;overscroll-behavior:contain}
+  table.dk{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px;
+    font-variant-numeric:tabular-nums}
+  table.dk th{position:sticky;top:0;background:var(--surface-2);text-align:left;font-weight:400;
+    color:var(--faint);font-size:10px;letter-spacing:.08em;padding:7px 8px 5px;
+    border-bottom:1px solid var(--hair)}
+  table.dk td{padding:5px 8px;border-bottom:1px solid var(--hair);color:var(--muted);white-space:nowrap}
+  table.dk tr:last-child td{border-bottom:0}
+  table.dk td.st{color:var(--ink);white-space:normal;min-width:11ch}
+  table.dk td.nr{color:var(--faint)}
+  table.dk td.fl{color:var(--accent)}
+  table.dk td.ar{color:var(--ink)}
+  .dk-empty{padding:22px 15px;font-family:var(--mono);font-size:12px;color:var(--faint);line-height:1.6}
+  .dk-foot{display:flex;flex-wrap:wrap;gap:3px 18px;padding:10px 15px;border-top:1px dashed var(--line);
+    font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+  .dk-foot b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+  @media (prefers-reduced-motion:no-preference){
+    @keyframes dkin{from{opacity:0;transform:translateY(-5px)}}
+    table.dk tbody tr{animation:dkin .3s cubic-bezier(.16,1,.3,1) backwards;
+      animation-delay:calc(var(--i) * 32ms)}
+  }
 </style>
 
 </head>
@@ -282,45 +324,59 @@
         <p class="kick">Ho Chi Minh City, 2025</p>
         <h2>Bins that tell the truck when they're full</h2>
         <p class="lead">Vollebak puts fill-level sensors inside public waste bins. I built the program that
-          turns those readings into a collection route, so trucks stop driving past empty ones.</p>
-        <p class="lead">A fill level is not a decision. Each reading runs through a logistic curve to
-          give the bin a collection priority, and that priority becomes a time window: a nearly full bin can
-          be collected at any point in the day, a half empty one gets a narrow slot later on.</p>
-        <p class="lead">The whole thing goes to a route optimiser as a set of shipments with windows, costs
-          and service times.</p>
-        <p class="lead" style="margin-top:16px;color:var(--ink)"><strong>Try it.</strong> Move the curve
-          and watch the round rebuild.</p>
+          turns a morning's worth of sensor readings into the round sheet a driver actually leaves with.</p>
+        <p class="lead">The rule is easy to say and fiddly to compute. A bin past the threshold gets emptied
+          today, whenever the truck can reach it. A bin just below it only gets emptied if the truck is
+          already passing close by. Everything further down waits for tomorrow. Every reading becomes a stop
+          with a time window, and the whole set goes to a route optimiser.</p>
+        <p class="lead">Raise the threshold and the truck gets fussier: fewer stops, shorter day, more bins
+          left behind. Lower it and the round fills up with bins that barely needed emptying.</p>
+        <p class="lead" style="margin-top:16px;color:var(--ink)"><strong>Set the two dials, then print a
+          round.</strong></p>
       </div>
 
       <div class="inst reveal">
         <div class="inst-head">
-          <span class="inst-title">collection round, priority weighted</span>
-          <button class="btn solid" id="run" type="button">Rebuild round</button>
+          <span class="inst-title">depot planner &middot; shift starts 06:00</span>
+          <button class="btn solid" id="run" type="button">Plan the round</button>
         </div>
         <div class="inst-body">
-          <canvas id="net" height="300" aria-label="Street network with bins sized by collection priority, showing the route"></canvas>
-          <div style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center;margin-top:12px">
-            <canvas id="curve" width="132" height="76" aria-label="Logistic curve mapping fill level to collection priority"></canvas>
-            <div>
-              <label class="ctrl" style="display:flex">steepness
-                <input type="range" id="k" min="2" max="20" value="10" step="1">
-                <span class="mono" id="kv" style="color:var(--accent)">10</span>
-              </label>
-              <label class="ctrl" style="display:flex;margin-top:9px">pivot
-                <input type="range" id="x0" min="20" max="80" value="50" step="5">
-                <span class="mono" id="x0v" style="color:var(--accent)">0.50</span>
-              </label>
-            </div>
+          <canvas id="net" height="252" aria-label="District map showing waste bins by fill level and the planned truck route"></canvas>
+          <div class="dials">
+            <label class="dial">
+              <span class="dial-l">Empty a bin once it passes</span>
+              <output class="dial-v" id="thr-v">70% full</output>
+              <input type="range" id="thr" min="50" max="90" value="70" step="5">
+            </label>
+            <label class="dial">
+              <span class="dial-l">Bins in the district</span>
+              <output class="dial-v" id="cnt-v">26 bins</output>
+              <input type="range" id="cnt" min="14" max="38" value="26" step="2">
+            </label>
           </div>
         </div>
-        <div class="readout">
-          <div class="cell"><div class="n" id="r-served">0</div><div class="l">stops today</div></div>
-          <div class="cell"><div class="n" id="r-km">0</div><div class="l">route length</div></div>
-          <div class="cell"><div class="n good" id="r-shift">0h</div><div class="l">of an 8 hour shift</div></div>
+
+        <div class="docket" id="docket">
+          <div class="dk-head"><b>ROUND SHEET</b><span id="dk-id">&mdash;</span></div>
+          <div class="dk-scroll">
+            <table class="dk">
+              <thead><tr><th>#</th><th>BIN</th><th>STREET</th><th>FILL</th><th>ARR</th></tr></thead>
+              <tbody id="dk-rows"></tbody>
+            </table>
+            <p class="dk-empty" id="dk-empty" hidden>No bin is full enough to be worth a truck today.
+              Lower the threshold.</p>
+          </div>
+          <div class="dk-foot">
+            <span><b id="dk-stops">0</b> stops</span>
+            <span><b id="dk-km">0</b> km</span>
+            <span><b id="dk-hrs">0.0</b> of 8 h</span>
+            <span><b id="dk-skip">0</b> left for tomorrow</span>
+          </div>
         </div>
-        <p class="inst-note">A demonstration of the model, running in your browser on a synthetic street
-          grid and synthetic fill levels. The production system hands the same shipment model to a commercial
-          route optimiser. That code belongs to the project and is not published.</p>
+
+        <p class="inst-note">A demonstration of the model, running in your browser on a synthetic street grid
+          and synthetic sensor readings. The production system hands the same set of timed stops to a
+          commercial route optimiser. That code belongs to the project and is not published.</p>
       </div>
     </div>
   </section>
@@ -403,15 +459,24 @@
     </div>
     <div class="reveal">
       <div class="lswitch" role="group" aria-label="Map layer">
-        <button type="button" data-layer="base" aria-pressed="true">Base layer</button>
-        <button type="button" data-layer="full" aria-pressed="false">Full network</button>
+        <button type="button" data-layer="basis" aria-pressed="true">Base</button>
+        <button type="button" data-layer="hoofd" aria-pressed="false">Main routes</button>
+        <button type="button" data-layer="groen" aria-pressed="false">Green routes</button>
+        <button type="button" data-layer="alles" aria-pressed="false">All three</button>
       </div>
       <div class="layers" id="layers">
-        <img src="work-deventer-base.jpg" alt="Base pedestrian network of Deventer extracted from OpenStreetMap" loading="lazy" width="1300" height="918">
-        <img class="b" src="work-deventer-network.jpg" alt="Complete three-layer pedestrian network of Deventer built to the CROW standard" loading="lazy" width="1300" height="918">
+        <img data-k="basis" data-on src="map-basis.webp" width="1600" height="1131"
+          alt="The base pedestrian network of Deventer, every walkable connection drawn in yellow over a grey basemap">
+        <img data-k="hoofd" src="map-hoofd.webp" loading="lazy" width="1600" height="1131"
+          alt="The main pedestrian routes of Deventer drawn in teal, a sparse skeleton connecting the districts to the centre">
+        <img data-k="groen" src="map-groen.webp" loading="lazy" width="1600" height="1131"
+          alt="The green and recreational pedestrian routes of Deventer drawn in olive, following the IJssel and the parks">
+        <img data-k="alles" src="map-alles.webp" loading="lazy" width="1600" height="1131"
+          alt="All three layers of the Deventer pedestrian network together: base in yellow, main in teal, green routes in olive">
       </div>
-      <p class="cap" id="lcap">Every walkable connection pulled from OpenStreetMap and filtered by hand. The
-        starting point, before the network is classified.</p>
+      <p class="cap" id="lcap">Every walkable connection in the city, pulled from OpenStreetMap and filtered
+        against explicit rules. Alleys, cut-throughs, bridges and tunnels in, private land out. This is the
+        starting point, before anything is classified.</p>
       <p class="lead" style="margin-top:16px">Intensities came from Goudappel's mobility panel, checked
         against our own counts at three locations. The two datasets did not agree, and what we concluded was
         that the hard numbers only make sense with street-level observation beside them.</p>
@@ -570,165 +635,240 @@
     secs.forEach(function(s){nio.observe(s)});
   }
 
-  /* ================= ROUTING SIMULATOR =================
-     Mirrors the model built for Vollebak: fill level -> logistic priority ->
-     soft time window -> shipment model. Solved here with nearest-insertion;
-     the production system uses a commercial route optimiser. */
-  var cv=$("#net"), ctx=cv.getContext("2d"), cvc=$("#curve"), cc=cvc.getContext("2d");
-  var NODES=[],EDGES=[],BINS=[],DEPOT=null,ROUTE=[],W=0,H=0,prog=1,anim=null;
-  var kEl=$("#k"), x0El=$("#x0");
-  var SHIFT_H=8, SERVICE_S=300, SPEED_KMH=22;
+  /* ================= DEPOT PLANNER =================
+     The model built for Vollebak. A sensor reading becomes a collection
+     priority, the priority becomes a time window, and the windows become a
+     round. Solved here greedily so it runs in a browser; the production
+     system hands the same set of timed stops to a commercial optimiser. */
+  var cv=$("#net"), ctx=cv.getContext("2d");
+  var NODES=[],EDGES=[],BINS=[],DEPOT=null,ROUTE=[],W=0,H=0,prog=1,anim=null,SEED=7919;
+  var thrEl=$("#thr"), cntEl=$("#cnt");
+  var SHIFT_H=8, SERVICE_S=330, SPEED_KMH=12, START_H=6;
+
+  var STREETS=["Nguyen Hue","Le Loi","Dong Khoi","Hai Ba Trung","Le Thanh Ton","Pasteur",
+    "Nam Ky Khoi Nghia","Vo Van Tan","Dien Bien Phu","Tran Hung Dao","Nguyen Du","Ton Duc Thang",
+    "Bui Vien","Pham Ngu Lao","Nguyen Trai","Le Duan","Ham Nghi","Calmette","Nguyen Cong Tru",
+    "Ky Con","Pho Duc Chinh","Ly Tu Trong","Mac Thi Buoi","Ngo Duc Ke","Ho Tung Mau","Cao Ba Quat",
+    "Thai Van Lung","Dong Du","Thi Sach","Hai Trieu","Ton That Dam","Le Lai","Truong Dinh","Vo Thi Sau"];
 
   function rng(seed){var s=seed;return function(){s=(s*1664525+1013904223)%4294967296;return s/4294967296}}
   function dist(a,b){return Math.hypot(a.x-b.x,a.y-b.y)}
-  function kmScale(){return 12/Math.max(W,1)}  // canvas spans about 12 km
+  function kmScale(){return 4.6/Math.max(W,1)}        /* the canvas spans about 4.6 km */
+  function thr(){return parseInt(thrEl.value,10)}
+  function rr(x,y,w,h,r){ctx.beginPath();
+    ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);
+    ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+  function clock(h){var m=Math.round((START_H+h)*60),hh=Math.floor(m/60)%24,mm=m%60;
+    return (hh<10?"0":"")+hh+":"+(mm<10?"0":"")+mm}
 
-  /* the logistic used in the real program */
-  function priority(fill){
-    var k=parseFloat(kEl.value), x0=parseFloat(x0El.value)/100;
-    return 1/(1+Math.exp(-k*(fill/100-x0)));
+  /* Two tiers, which is what the soft windows amount to in practice.
+     Past the threshold the bin is a must-do. Just under it, the bin is only
+     worth the detour if the truck is already passing close. Further under,
+     it waits for tomorrow. */
+  var SPARE_BAND=18;
+  function tierOf(fill){var T=thr();
+    return fill>=T?"due":fill>=T-SPARE_BAND?"spare":"tomorrow"}
+
+  /* all-pairs shortest paths over the street graph, so the truck drives
+     along streets instead of straight across blocks */
+  var IDX=null,D=null,NXT=null;
+  function buildPaths(){
+    var n=NODES.length,i,j,k;
+    IDX=new Map();NODES.forEach(function(nd,q){IDX.set(nd,q)});
+    D=[];NXT=[];
+    for(i=0;i<n;i++){
+      var row=new Float64Array(n);row.fill(Infinity);row[i]=0;D.push(row);
+      var nx=new Int16Array(n);nx.fill(-1);nx[i]=i;NXT.push(nx);
+    }
+    EDGES.forEach(function(e){
+      var a=IDX.get(e[0]),b=IDX.get(e[1]),w=dist(e[0],e[1]);
+      if(w<D[a][b]){D[a][b]=D[b][a]=w;NXT[a][b]=b;NXT[b][a]=a}
+    });
+    for(k=0;k<n;k++)for(i=0;i<n;i++){
+      if(D[i][k]===Infinity)continue;
+      for(j=0;j<n;j++){var alt=D[i][k]+D[k][j];
+        if(alt<D[i][j]){D[i][j]=alt;NXT[i][j]=NXT[i][k]}}
+    }
+  }
+  function gdist(a,b){return D[IDX.get(a)][IDX.get(b)]}
+  function pathBetween(a,b){
+    var i=IDX.get(a),j=IDX.get(b),out=[a],guard=0;
+    if(NXT[i][j]===-1)return [a,b];
+    while(i!==j&&guard++<200){i=NXT[i][j];out.push(NODES[i])}
+    return out;
   }
 
   function build(){
-    var r=rng(24680), cols=W<460?5:W<620?6:8, rows=4;
+    var r=rng(SEED), cols=W<430?6:W<580?7:8, rows=5;
     NODES=[];EDGES=[];
-    var mx=W*.08,my=H*.13,gw=(W-mx*2)/(cols-1),gh=(H-my*2)/(rows-1);
-    for(var y=0;y<rows;y++)for(var x=0;x<cols;x++){
-      if(r()<.07) continue;
-      NODES.push({x:mx+x*gw+(r()-.5)*gw*.42,y:my+y*gh+(r()-.5)*gh*.38,gx:x,gy:y});
-    }
+    var mx=W*.08,my=H*.14,gw=(W-mx*2)/(cols-1),gh=(H-my*2)/(rows-1);
+    for(var y=0;y<rows;y++)for(var x=0;x<cols;x++)
+      NODES.push({x:mx+x*gw+(r()-.5)*gw*.3,y:my+y*gh+(r()-.5)*gh*.26,gx:x,gy:y});
     NODES.forEach(function(a,i){NODES.forEach(function(b,j){
-      if(j<=i)return; var dx=Math.abs(a.gx-b.gx),dy=Math.abs(a.gy-b.gy);
-      if((dx===1&&dy===0)||(dx===0&&dy===1)) EDGES.push([a,b]);
+      if(j<=i)return;var dx=Math.abs(a.gx-b.gx),dy=Math.abs(a.gy-b.gy);
+      if((dx===1&&dy===0)||(dx===0&&dy===1))EDGES.push([a,b]);
     })});
-    var pool=NODES.slice().sort(function(){return r()-.5});
+    buildPaths();
+    var pool=NODES.slice().sort(function(a,b){return (a.gx+a.gy)-(b.gx+b.gy)});
     DEPOT=pool[0];
-    var n=Math.min(22,pool.length-1);
-    BINS=pool.slice(1,1+n).map(function(nd){return {n:nd,fill:Math.round(r()*100)}});
+    var rest=pool.slice(1);
+    for(var k=rest.length-1;k>0;k--){var q=Math.floor(r()*(k+1));var t=rest[k];rest[k]=rest[q];rest[q]=t}
+    var n=Math.min(parseInt(cntEl.value,10), rest.length), used={};
+    BINS=[];
+    for(var i=0;i<n;i++){
+      var st;do{st=STREETS[Math.floor(r()*STREETS.length)]}while(used[st]&&Object.keys(used).length<STREETS.length);
+      used[st]=1;
+      BINS.push({n:rest[i], fill:Math.round(6+r()*94),
+        id:"B-"+(1040+i*7+Math.floor(r()*6)), st:st});
+    }
   }
 
-  /* time window from fill level, following the rule used in the real program:
-     a nearly full bin may be served at any point in the day, a fuller-than-empty
-     one gets a one hour slot, and the emptier it is the later that slot opens. */
-  var MIN_DELAY=0.05, MAX_DELAY=1.5, WIN=1.0;
-  function windowFor(fill){
-    if(fill>=80) return {s:0, e:SHIFT_H};
-    var start=MIN_DELAY+(MAX_DELAY-MIN_DELAY)*(1-fill/100);
-    var end=Math.min(start+WIN, SHIFT_H);
-    return {s:start, e:end};
-  }
-
-  /* greedy round that respects those windows, with lateness priced by the
-     logistic priority. Same shape as the shipment model, solved simply. */
-  var SOFT_COST=100;
   function planRound(){
-    var scale=kmScale(), left=BINS.slice(), cur=DEPOT, t=0, tour=[DEPOT], served=[];
-    while(left.length){
-      var best=null;
-      for(var i=0;i<left.length;i++){
-        var travel=dist(cur,left[i].n)*scale/SPEED_KMH;
-        var arrive=t+travel, w=windowFor(left[i].fill);
-        var late=Math.max(0, arrive-w.e);
-        var cost=travel + SOFT_COST*priority(left[i].fill)*late;
-        if(!best||cost<best.cost) best={cost:cost,i:i,travel:travel,arrive:arrive,w:w};
+    var scale=kmScale(), due=[], spare=[], skipped=0;
+    BINS.forEach(function(b){
+      var k=tierOf(b.fill);
+      if(k==="due")due.push(b); else if(k==="spare")spare.push(b); else skipped++;
+    });
+    var NEAR=Math.min(W,H)*0.34;
+    var cur=DEPOT,t=0,rows=[],tour=[DEPOT],i;
+    while(due.length||spare.length){
+      var bd=null,bi=-1,sp=false;
+      for(i=0;i<due.length;i++){var d=gdist(cur,due[i].n);
+        if(bd===null||d<bd){bd=d;bi=i;sp=false}}
+      for(i=0;i<spare.length;i++){var e=gdist(cur,spare[i].n);
+        if(e<=NEAR&&(bd===null||e<bd)){bd=e;bi=i;sp=true}}
+      if(bi<0)break;
+      var list=sp?spare:due, pick=list[bi],
+          arrive=t+bd*scale/SPEED_KMH,
+          finish=arrive+SERVICE_S/3600,
+          home=gdist(pick.n,DEPOT)*scale/SPEED_KMH;
+      if(finish+home>SHIFT_H)break;
+      tour=tour.concat(pathBetween(cur,pick.n).slice(1));
+      t=finish;cur=pick.n;
+      rows.push({bin:pick,at:arrive});
+      list.splice(bi,1);
+    }
+    skipped+=due.length+spare.length;
+    tour=tour.concat(pathBetween(cur,DEPOT).slice(1));
+    var len=0;for(i=0;i<tour.length-1;i++)len+=dist(tour[i],tour[i+1]);
+    return {tour:tour,rows:rows,skipped:skipped,km:len*scale,
+      hours:t+gdist(cur,DEPOT)*scale/SPEED_KMH};
+  }
+
+  function renderDocket(p){
+    var tb=$("#dk-rows"), frag=document.createDocumentFragment();
+    tb.textContent="";
+    p.rows.forEach(function(r,i){
+      var tr=document.createElement("tr");
+      tr.style.setProperty("--i",i);
+      tr.innerHTML='<td class="nr">'+(i+1<10?"0":"")+(i+1)+'</td><td>'+r.bin.id+
+        '</td><td class="st">'+r.bin.st+'</td><td class="fl">'+r.bin.fill+
+        '%</td><td class="ar">'+clock(r.at)+'</td>';
+      frag.appendChild(tr);
+    });
+    tb.appendChild(frag);
+    $("#dk-empty").hidden=p.rows.length>0;
+    $("#dk-stops").textContent=p.rows.length;
+    $("#dk-km").textContent=p.km.toFixed(1);
+    $("#dk-hrs").textContent=p.hours.toFixed(1);
+    $("#dk-skip").textContent=p.skipped;
+    $("#dk-id").textContent="D1 · THRESHOLD "+thr()+"%";
+  }
+
+  function routePoint(f){
+    if(ROUTE.length<2) return null;
+    var segs=[],tot=0,i;
+    for(i=0;i<ROUTE.length-1;i++){var l=dist(ROUTE[i],ROUTE[i+1]);segs.push(l);tot+=l}
+    var want=tot*f,acc=0;
+    for(i=0;i<segs.length;i++){
+      if(acc+segs[i]>=want){
+        var u=segs[i]?(want-acc)/segs[i]:0, a=ROUTE[i], b=ROUTE[i+1];
+        return {x:a.x+(b.x-a.x)*u, y:a.y+(b.y-a.y)*u};
       }
-      var b=left[best.i];
-      var finish=Math.max(best.arrive,best.w.s)+SERVICE_S/3600;
-      var home=dist(b.n,DEPOT)*scale/SPEED_KMH;
-      if(finish+home>SHIFT_H) break;
-      t=finish; cur=b.n; tour.push(b.n); served.push(b); left.splice(best.i,1);
+      acc+=segs[i];
     }
-    tour.push(DEPOT);
-    var len=0; for(var q=0;q<tour.length-1;q++) len+=dist(tour[q],tour[q+1]);
-    return {tour:tour, served:served, hours:t+dist(cur,DEPOT)*scale/SPEED_KMH, len:len};
+    return ROUTE[ROUTE.length-1];
   }
 
-  function compute(){
-    var scale=kmScale(), plan=planRound();
-    ROUTE=plan.tour;
-    $("#r-served").textContent=plan.served.length;
-    $("#r-km").textContent=(plan.len*scale).toFixed(0)+" km";
-    $("#r-shift").textContent=plan.hours.toFixed(1)+"h";
-  }
-
-  function drawCurve(){
-    var w=cvc.width,h=cvc.height, ACC=css("--accent"), LINE=css("--line"), FAINT=css("--faint");
-    cc.clearRect(0,0,w,h);
-    cc.strokeStyle=LINE;cc.lineWidth=1;
-    cc.beginPath();cc.moveTo(0,h-1);cc.lineTo(w,h-1);cc.moveTo(1,0);cc.lineTo(1,h);cc.stroke();
-    cc.strokeStyle=ACC;cc.lineWidth=2;cc.beginPath();
-    for(var px=0;px<=w;px++){
-      var f=px/w*100, y=h-2-priority(f)*(h-6);
-      px?cc.lineTo(px,y):cc.moveTo(px,y);
-    }
-    cc.stroke();
-    cc.fillStyle=FAINT;cc.font='9px ui-monospace,monospace';
-    cc.fillText("0%",2,h-3); cc.fillText("fill 100%",w-44,h-3);
+  function drawBin(b,on){
+    var x=b.n.x,y=b.n.y,w=9,h=11,
+        ACC=css("--accent"),FAINT=css("--faint"),LINE=css("--line");
+    rr(x-w/2,y-h/2,w,h,1.9);
+    ctx.fillStyle=css("--bg-2");ctx.fill();
+    ctx.save();rr(x-w/2,y-h/2,w,h,1.9);ctx.clip();
+    ctx.fillStyle=on?ACC:FAINT;ctx.globalAlpha=on?1:.4;
+    var fh=h*(b.fill/100);ctx.fillRect(x-w/2,y+h/2-fh,w,fh);
+    ctx.restore();ctx.globalAlpha=1;
+    rr(x-w/2,y-h/2,w,h,1.9);
+    ctx.lineWidth=1.2;ctx.strokeStyle=on?ACC:LINE;ctx.stroke();
+    ctx.beginPath();ctx.moveTo(x-w/2-1.7,y-h/2);ctx.lineTo(x+w/2+1.7,y-h/2);
+    ctx.lineWidth=1.9;ctx.strokeStyle=on?ACC:FAINT;ctx.stroke();
   }
 
   function drawNet(){
     if(!W)return;
-    var LINE=css("--line"),FAINT=css("--faint"),ACC=css("--accent"),INK=css("--ink"),BG=css("--bg-2");
-    ctx.clearRect(0,0,W,H); ctx.fillStyle=BG; ctx.fillRect(0,0,W,H);
-    ctx.strokeStyle=LINE;ctx.lineWidth=1;
+    var LINE=css("--line"),FAINT=css("--faint"),ACC=css("--accent"),INK=css("--ink");
+    ctx.clearRect(0,0,W,H);ctx.fillStyle=css("--bg-2");ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle=FAINT;ctx.lineWidth=2.6;ctx.globalAlpha=.22;ctx.lineCap="round";
     EDGES.forEach(function(e){ctx.beginPath();ctx.moveTo(e[0].x,e[0].y);ctx.lineTo(e[1].x,e[1].y);ctx.stroke()});
-    ctx.fillStyle=FAINT;
-    NODES.forEach(function(n){ctx.beginPath();ctx.arc(n.x,n.y,1.5,0,7);ctx.fill()});
+    ctx.globalAlpha=1;
+
     if(ROUTE.length>1){
-      var segs=[],tot=0;
-      for(var i=0;i<ROUTE.length-1;i++){var l=dist(ROUTE[i],ROUTE[i+1]);segs.push({a:ROUTE[i],b:ROUTE[i+1],l:l});tot+=l}
+      var segs=[],tot=0,i;
+      for(i=0;i<ROUTE.length-1;i++){var l=dist(ROUTE[i],ROUTE[i+1]);segs.push(l);tot+=l}
       var want=tot*prog,acc=0;
-      ctx.strokeStyle=ACC;ctx.lineWidth=2.4;ctx.lineJoin="round";ctx.lineCap="round";
+      ctx.strokeStyle=ACC;ctx.lineWidth=2.2;ctx.lineJoin="round";ctx.lineCap="round";
       ctx.beginPath();ctx.moveTo(ROUTE[0].x,ROUTE[0].y);
-      for(var sI=0;sI<segs.length;sI++){
-        if(acc+segs[sI].l<=want){ctx.lineTo(segs[sI].b.x,segs[sI].b.y);acc+=segs[sI].l}
-        else{var f=Math.max(0,(want-acc)/segs[sI].l);
-          ctx.lineTo(segs[sI].a.x+(segs[sI].b.x-segs[sI].a.x)*f,segs[sI].a.y+(segs[sI].b.y-segs[sI].a.y)*f);break}
+      for(i=0;i<segs.length;i++){
+        if(acc+segs[i]<=want){ctx.lineTo(ROUTE[i+1].x,ROUTE[i+1].y);acc+=segs[i]}
+        else{var u=segs[i]?(want-acc)/segs[i]:0;
+          ctx.lineTo(ROUTE[i].x+(ROUTE[i+1].x-ROUTE[i].x)*u,
+                     ROUTE[i].y+(ROUTE[i+1].y-ROUTE[i].y)*u);break}
       }
       ctx.stroke();
     }
+
     var inRoute=new Set(ROUTE);
-    BINS.forEach(function(b){
-      var pr=priority(b.fill), on=inRoute.has(b.n), R=3+pr*4.6;
-      ctx.beginPath();ctx.arc(b.n.x,b.n.y,R,0,7);
-      if(on){ctx.fillStyle=ACC;ctx.globalAlpha=.35+pr*.65;ctx.fill();ctx.globalAlpha=1}
-      ctx.strokeStyle=on?ACC:FAINT;ctx.lineWidth=1.3;ctx.stroke();
-    });
-    if(DEPOT){ctx.fillStyle=INK;ctx.fillRect(DEPOT.x-4.5,DEPOT.y-4.5,9,9)}
+    BINS.forEach(function(b){drawBin(b,inRoute.has(b.n))});
+
+    if(DEPOT){
+      ctx.fillStyle=INK;rr(DEPOT.x-5,DEPOT.y-5,10,10,2.5);ctx.fill();
+      ctx.fillStyle=css("--bg-2");rr(DEPOT.x-2,DEPOT.y-1.5,4,4,.8);ctx.fill();
+    }
+    var tp=prog<1?routePoint(prog):null;
+    if(tp){
+      ctx.fillStyle=INK;rr(tp.x-7,tp.y-4.5,14,9,2);ctx.fill();
+      ctx.fillStyle=ACC;rr(tp.x-7,tp.y-4.5,5,9,2);ctx.fill();
+    }
   }
+
+  function compute(){var p=planRound();ROUTE=p.tour;renderDocket(p)}
+  function labels(){$("#thr-v").textContent=thr()+"% full";
+    $("#cnt-v").textContent=BINS.length+" bins"}
 
   function resize(){
     var rect=cv.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);
-    W=rect.width;H=rect.height||300;
+    W=rect.width;H=rect.height||270;
     cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
     ctx.setTransform(dpr,0,0,dpr,0,0);
-    var cd=Math.min(window.devicePixelRatio||1,2);
-    cvc.width=132*cd;cvc.height=76*cd;cvc.style.width="132px";cvc.style.height="76px";
-    cc.setTransform(cd,0,0,cd,0,0);cvc.width=132*cd;
-    cc.setTransform(cd,0,0,cd,0,0);
-    build();compute();prog=1;drawNet();drawCurve();
+    build();compute();labels();prog=1;drawNet();
   }
 
   function run(){
-    compute();
+    compute();labels();
     if(reduce){prog=1;drawNet();return}
     if(anim)cancelAnimationFrame(anim);
     var t0=null;
     (function step(ts){
       if(t0===null)t0=ts;
-      prog=Math.min(1,(ts-t0)/1400); drawNet();
-      if(prog<1) anim=requestAnimationFrame(step);
+      prog=Math.min(1,(ts-t0)/1600);drawNet();
+      if(prog<1)anim=requestAnimationFrame(step);
     })(performance.now());
   }
 
-  function paramChanged(){
-    $("#kv").textContent=kEl.value;
-    $("#x0v").textContent=(parseFloat(x0El.value)/100).toFixed(2);
-    drawCurve(); compute(); prog=1; drawNet();
-  }
-  kEl.addEventListener("input",paramChanged);
-  x0El.addEventListener("input",paramChanged);
-  $("#run").addEventListener("click",function(){build();run()});
+  thrEl.addEventListener("input",function(){compute();labels();prog=1;drawNet()});
+  cntEl.addEventListener("input",function(){build();compute();labels();prog=1;drawNet()});
+  $("#run").addEventListener("click",function(){SEED=(SEED*31+7)%2147483647;build();run()});
   var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(resize,180)});
 
   /* ================= SEGMENT SCORER ================= */
@@ -785,16 +925,20 @@
   });
 
   /* ================= LAYER TOGGLE ================= */
-  var layers=$("#layers"), lcap=$("#lcap");
+  var lcap=$("#lcap");
   var caps={
-    base:"Every walkable connection pulled from OpenStreetMap and filtered by hand. The starting point, before the network is classified.",
-    full:"The finished network, classified into the CROW three-layer model: base, main and green-recreational."
+    basis:"Every walkable connection in the city, pulled from OpenStreetMap and filtered against explicit rules. Alleys, cut-throughs, bridges and tunnels in, private land out. This is the starting point, before anything is classified.",
+    hoofd:"The main layer. The routes that carry most of the walking, tying the districts to the centre and to each other. Thin on purpose: a main network that includes everything is not a main network.",
+    groen:"The green and recreational layer, following the IJssel, the town park and the ring of former ramparts. These are the routes people choose when the trip is not about arriving.",
+    alles:"All three layers together, which is how the CROW model reads a city. The base network carries the capillaries; the main and green layers are where the money should go first."
   };
   $$(".lswitch button").forEach(function(b){
     b.addEventListener("click",function(){
-      $$(".lswitch button").forEach(function(o){o.setAttribute("aria-pressed",String(o===b))});
       var k=b.dataset.layer;
-      layers.classList.toggle("on", k==="full");
+      $$(".lswitch button").forEach(function(o){o.setAttribute("aria-pressed",String(o===b))});
+      $$("#layers img").forEach(function(im){
+        im.dataset.k===k?im.setAttribute("data-on",""):im.removeAttribute("data-on");
+      });
       lcap.textContent=caps[k];
     });
   });
