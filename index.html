@@ -234,8 +234,22 @@
   @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 
   /* ---------- depot planner ---------- */
-  #net{height:270px}
-  @media (max-width:560px){#net{height:218px}}
+  #canal{height:300px;cursor:pointer}
+  @media (max-width:560px){#canal{height:252px}}
+  .dial .pips{grid-column:1/-1;margin-top:4px}
+  table.dk td.vd{color:var(--muted)}
+  table.dk tr[data-sel] td{background:var(--wash);color:var(--ink)}
+  table.dk tr[data-sel] td.nr{color:var(--accent)}
+  .cramp{display:flex;align-items:center;gap:7px;margin-top:12px;
+    font-family:var(--mono);font-size:11px;color:var(--faint)}
+  .cramp i{width:30px;height:9px;border-radius:2px;display:block;flex:none}
+  .cverd{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline;margin-top:14px;
+    padding-top:13px;border-top:1px solid var(--hair);font-family:var(--mono);font-size:12.5px}
+  .cverd .k{color:var(--faint)}
+  .cverd .s{color:var(--accent)}
+  .cverd .v{color:var(--ink)}
+  #net{height:312px}
+  @media (max-width:560px){#net{height:250px}}
   .dials{display:grid;gap:13px;margin-top:15px}
   .dial{display:grid;grid-template-columns:1fr auto;gap:5px 12px;align-items:baseline}
   .dial-l{font-size:13.5px;color:var(--muted)}
@@ -330,7 +344,8 @@
           already passing close by. Everything further down waits for tomorrow. Every reading becomes a stop
           with a time window, and the whole set goes to a route optimiser.</p>
         <p class="lead">Raise the threshold and the truck gets fussier: fewer stops, shorter day, more bins
-          left behind. Lower it and the round fills up with bins that barely needed emptying.</p>
+          left for tomorrow. Shorten the shift and the round simply stops wherever the clock runs out. Those
+          are the two levers a depot actually argues about; the thirty-four bins are a given.</p>
         <p class="lead" style="margin-top:16px;color:var(--ink)"><strong>Set the two dials, then print a
           round.</strong></p>
       </div>
@@ -338,7 +353,7 @@
       <div class="inst reveal">
         <div class="inst-head">
           <span class="inst-title">depot planner &middot; shift starts 06:00</span>
-          <button class="btn solid" id="run" type="button">Plan the round</button>
+          <button class="btn solid" id="run" type="button">Randomise readings</button>
         </div>
         <div class="inst-body">
           <canvas id="net" height="252" aria-label="District map showing waste bins by fill level and the planned truck route"></canvas>
@@ -349,9 +364,9 @@
               <input type="range" id="thr" min="50" max="90" value="70" step="5">
             </label>
             <label class="dial">
-              <span class="dial-l">Bins in the district</span>
-              <output class="dial-v" id="cnt-v">26 bins</output>
-              <input type="range" id="cnt" min="14" max="38" value="26" step="2">
+              <span class="dial-l">Length of the shift</span>
+              <output class="dial-v" id="shift-v">8 hours</output>
+              <input type="range" id="shift" min="3" max="10" value="8" step="1">
             </label>
           </div>
         </div>
@@ -369,7 +384,7 @@
           <div class="dk-foot">
             <span><b id="dk-stops">0</b> stops</span>
             <span><b id="dk-km">0</b> km</span>
-            <span><b id="dk-hrs">0.0</b> of 8 h</span>
+            <span><b id="dk-hrs">0.0</b> of <b id="dk-shift">8</b> h</span>
             <span><b id="dk-skip">0</b> left for tomorrow</span>
           </div>
         </div>
@@ -392,56 +407,85 @@
         <p class="lead">Java's colonial-era canals still carry the water, but the ground is dropping and the
           sea is rising. Over five months I worked out which stretches can still be saved.</p>
         <p class="lead">I built a scoring instrument for individual canal segments and applied it identically
-          in all three cities, so the cases could be compared rather than just described. It ran alongside
-          historical document analysis, QGIS overlays of the original network against the current one, and
-          photographic validation on site.</p>
+          in all three cities, so the cases could be compared rather than just described. Every segment gets
+          two marks out of five: how sound the structure still is, and how much the stretch is actually used.
+          Together they decide whether a reach is worth restoring, worth watching, or past saving.</p>
+        <p class="lead">It ran alongside historical document analysis, QGIS overlays of the original network
+          against the current one, and photographic validation on site.</p>
         <p class="lead">Sole author, named lead researcher by Universitas Diponegoro, graded 4.0. The study
           sits inside the Dutch City Deal "Timeless Canals" and runs in both directions, so what Java teaches
           goes back to the Dutch partners.</p>
+        <p class="lead" style="margin-top:16px;color:var(--ink)"><strong>Pick a segment on the canal and
+          score it.</strong></p>
         <div class="figpair" style="margin-top:22px">
           <figure style="margin:0">
-            <img src="work-canals-historic.jpg" alt="Nineteenth century plattegrond of Soerabaja showing the original canal network" loading="lazy" width="820" height="1233" style="border-radius:12px;border:1px solid var(--line)">
-            <figcaption class="cap">Plattegrond van Soerabaja. Archival plan used to reconstruct the original network.</figcaption>
+            <img src="work-canals-analysis.jpg" loading="lazy" width="1150" height="1127"
+              style="border-radius:12px;border:1px solid var(--line)"
+              alt="Map of Kali Ciliwung and Kali Besar in Jakarta, cut into numbered segments and colour coded by the setting alongside each one">
+            <figcaption class="cap">Kali Ciliwung and Kali Besar, Jakarta. The canals cut into the segments
+              the instrument was applied to, coded by what sits alongside each one.</figcaption>
           </figure>
-          <div></div>
+          <figure style="margin:0">
+            <img src="work-canals-historic.jpg" loading="lazy" width="820" height="1233"
+              style="border-radius:12px;border:1px solid var(--line)"
+              alt="Nineteenth century plattegrond of Soerabaja showing the original canal network">
+            <figcaption class="cap">Plattegrond van Soerabaja. Archival plan used to reconstruct the
+              original network.</figcaption>
+          </figure>
         </div>
       </div>
 
       <div class="reveal"><div class="inst">
         <div class="inst-head">
           <span class="inst-title">segment assessment instrument</span>
-          <span class="mono" style="font-size:12px;color:var(--faint)" id="seg-id">segment 1 of 12</span>
+          <button class="btn solid" id="cnew" type="button">Randomise canal</button>
         </div>
         <div class="inst-body">
-          <div class="segs" id="segs" role="group" aria-label="Canal segments"></div>
-          <div class="sc-row">
-            <span class="lbl">Technical integrity</span>
-            <div class="pips" id="p-tech" role="group" aria-label="Technical integrity score"></div>
-            <span class="val" id="v-tech">3</span>
+          <canvas id="canal" tabindex="0" role="application"
+            aria-label="A canal divided into segments, each shaded by its assessed condition. Use the arrow keys to move between segments."></canvas>
+          <div class="cramp" aria-hidden="true">
+            <span>failing</span>
+            <i style="background:var(--s1)"></i><i style="background:var(--s2)"></i><i style="background:var(--s3)"></i><i style="background:var(--s4)"></i><i style="background:var(--s5)"></i>
+            <span>intact</span>
           </div>
-          <div class="sc-row">
-            <span class="lbl">Functional use</span>
-            <div class="pips" id="p-func" role="group" aria-label="Functional use score"></div>
-            <span class="val" id="v-func">3</span>
+          <div class="dials">
+            <label class="dial">
+              <span class="dial-l">Technical integrity</span>
+              <output class="dial-v" id="v-tech">3 of 5</output>
+              <div class="pips" id="p-tech" role="group" aria-label="Technical integrity score"></div>
+            </label>
+            <label class="dial">
+              <span class="dial-l">Functional use</span>
+              <output class="dial-v" id="v-func">3 of 5</output>
+              <div class="pips" id="p-func" role="group" aria-label="Functional use score"></div>
+            </label>
           </div>
-          <div class="sc-row">
-            <span class="lbl">Segment condition</span>
-            <span class="mono" style="color:var(--muted);font-size:13px" id="verdict">moderate, watch</span>
-            <span class="val" id="v-sum">6</span>
+          <div class="cverd">
+            <span class="k">segment</span><span class="s" id="c-seg">KC01</span>
+            <span class="k">alongside</span><span class="v" id="c-set">residential</span>
+            <span class="k">reads as</span><span class="v" id="c-verdict">moderate, watch</span>
           </div>
         </div>
-        <div class="readout">
-          <div class="cell"><div class="n" id="c-mean">3.0</div><div class="l">mean technical</div></div>
-          <div class="cell"><div class="n" id="c-fmean">3.0</div><div class="l">mean functional</div></div>
+
+        <div class="docket" id="survey">
+          <div class="dk-head"><b>SURVEY SHEET</b><span id="sv-id">KALI CILIWUNG &middot; 10 SEGMENTS</span></div>
+          <div class="dk-scroll">
+            <table class="dk">
+              <thead><tr><th>#</th><th>SEG</th><th>SETTING</th><th>TEC</th><th>FUN</th><th>VERDICT</th></tr></thead>
+              <tbody id="sv-rows"></tbody>
+            </table>
+          </div>
+          <div class="dk-foot">
+            <span><b id="sv-mt">3.0</b> mean technical</span>
+            <span><b id="sv-mf">3.0</b> mean functional</span>
+            <span><b id="sv-pri">0</b> need intervention</span>
+          </div>
         </div>
-        <p class="inst-note">This is the instrument, not the findings. Pick a segment and score it the way
-          I did in the field. In the study it was applied to every segment across three cities, with
-          photographs as qualitative validation.</p>
-      </div>
-      <figure style="margin:22px 0 0">
-        <img src="work-canals-historic.jpg" alt="Nineteenth century plattegrond of Soerabaja showing the original canal network" loading="lazy" width="820" height="1233" style="border-radius:12px;border:1px solid var(--line)">
-        <figcaption class="cap">Plattegrond van Soerabaja. Archival plan used to reconstruct the original network.</figcaption>
-      </figure></div>
+
+        <p class="inst-note">This is the instrument, not the findings. The canal here is generated, so the
+          method can be tried without the field data. In the study it was applied to every segment across
+          three cities, with photographs as qualitative validation.</p>
+      </div></div>
     </div>
   </section>
 
@@ -642,8 +686,9 @@
      system hands the same set of timed stops to a commercial optimiser. */
   var cv=$("#net"), ctx=cv.getContext("2d");
   var NODES=[],EDGES=[],BINS=[],DEPOT=null,ROUTE=[],W=0,H=0,prog=1,anim=null,SEED=7919;
-  var thrEl=$("#thr"), cntEl=$("#cnt");
-  var SHIFT_H=8, SERVICE_S=330, SPEED_KMH=12, START_H=6;
+  var thrEl=$("#thr"), shiftEl=$("#shift");
+  var BIN_COUNT=34, SERVICE_S=600, SPEED_KMH=9, START_H=6;
+  function shiftH(){return parseInt(shiftEl.value,10)}
 
   var STREETS=["Nguyen Hue","Le Loi","Dong Khoi","Hai Ba Trung","Le Thanh Ton","Pasteur",
     "Nam Ky Khoi Nghia","Vo Van Tan","Dien Bien Phu","Tran Hung Dao","Nguyen Du","Ton Duc Thang",
@@ -653,7 +698,7 @@
 
   function rng(seed){var s=seed;return function(){s=(s*1664525+1013904223)%4294967296;return s/4294967296}}
   function dist(a,b){return Math.hypot(a.x-b.x,a.y-b.y)}
-  function kmScale(){return 4.6/Math.max(W,1)}        /* the canvas spans about 4.6 km */
+  function kmScale(){return 7/Math.max(W,1)}          /* the canvas spans about 7 km */
   function thr(){return parseInt(thrEl.value,10)}
   function rr(x,y,w,h,r){ctx.beginPath();
     ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);
@@ -699,7 +744,7 @@
   }
 
   function build(){
-    var r=rng(SEED), cols=W<430?6:W<580?7:8, rows=5;
+    var r=rng(SEED), cols=W<430?6:W<580?7:8, rows=6;
     NODES=[];EDGES=[];
     var mx=W*.08,my=H*.14,gw=(W-mx*2)/(cols-1),gh=(H-my*2)/(rows-1);
     for(var y=0;y<rows;y++)for(var x=0;x<cols;x++)
@@ -713,7 +758,7 @@
     DEPOT=pool[0];
     var rest=pool.slice(1);
     for(var k=rest.length-1;k>0;k--){var q=Math.floor(r()*(k+1));var t=rest[k];rest[k]=rest[q];rest[q]=t}
-    var n=Math.min(parseInt(cntEl.value,10), rest.length), used={};
+    var n=Math.min(BIN_COUNT, rest.length), used={};
     BINS=[];
     for(var i=0;i<n;i++){
       var st;do{st=STREETS[Math.floor(r()*STREETS.length)]}while(used[st]&&Object.keys(used).length<STREETS.length);
@@ -742,7 +787,7 @@
           arrive=t+bd*scale/SPEED_KMH,
           finish=arrive+SERVICE_S/3600,
           home=gdist(pick.n,DEPOT)*scale/SPEED_KMH;
-      if(finish+home>SHIFT_H)break;
+      if(finish+home>shiftH())break;
       tour=tour.concat(pathBetween(cur,pick.n).slice(1));
       t=finish;cur=pick.n;
       rows.push({bin:pick,at:arrive});
@@ -844,11 +889,12 @@
 
   function compute(){var p=planRound();ROUTE=p.tour;renderDocket(p)}
   function labels(){$("#thr-v").textContent=thr()+"% full";
-    $("#cnt-v").textContent=BINS.length+" bins"}
+    $("#shift-v").textContent=shiftH()+" hours";
+    $("#dk-shift").textContent=shiftH()}
 
   function resize(){
     var rect=cv.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);
-    W=rect.width;H=rect.height||270;
+    W=rect.width;H=rect.height||312;
     cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
     ctx.setTransform(dpr,0,0,dpr,0,0);
     build();compute();labels();prog=1;drawNet();
@@ -867,61 +913,177 @@
   }
 
   thrEl.addEventListener("input",function(){compute();labels();prog=1;drawNet()});
-  cntEl.addEventListener("input",function(){build();compute();labels();prog=1;drawNet()});
+  shiftEl.addEventListener("input",function(){compute();labels();prog=1;drawNet()});
   $("#run").addEventListener("click",function(){SEED=(SEED*31+7)%2147483647;build();run()});
-  var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(resize,180)});
+  var rt;window.addEventListener("resize",function(){
+    clearTimeout(rt);rt=setTimeout(function(){resize();resizeCanal()},180)});
 
-  /* ================= SEGMENT SCORER ================= */
-  var N=12, segData=[], cur=0;
-  for(var i=0;i<N;i++) segData.push({t:3,f:3});
-  var segsEl=$("#segs");
-  function ramp(v){return css("--s"+Math.max(1,Math.min(5,v)))}
-  function verdictOf(t,f){
-    var s=t+f;
-    if(s<=3) return "failing, priority intervention";
-    if(s<=5) return "degraded, intervention likely";
-    if(s<=7) return "moderate, watch";
-    if(s<=8) return "sound, maintain";
-    return "intact, multifunctional potential";
+  /* ================= SEGMENT ASSESSMENT =================
+     The instrument from the Java study: a canal cut into segments, each one
+     scored on technical integrity and functional use, the two combining into
+     a verdict. Here it runs on a generated canal so the method can be tried
+     without the field data. */
+  var ccv=$("#canal"), cc=ccv.getContext("2d");
+  var NSEG=10, CSEED=4211, JOINTS=[], SEG=[], csel=0, CW=0, CH=0, CANAL=null;
+  var CANALS=[["Kali Ciliwung","KC"],["Kali Besar","KBE"],["Kali Semarang","KS"],
+    ["Kalimas","KM"],["Kali Pegirian","KP"],["Banjir Kanal Barat","BKB"]];
+  var SETTINGS=["residential","commercial","industrial","mixed"];
+
+  function vshort(t,f){var s=t+f;
+    return s<=3?"priority":s<=5?"intervene":s<=7?"watch":s<=8?"maintain":"intact"}
+  function vlong(t,f){var s=t+f;
+    return s<=3?"failing, priority intervention":s<=5?"degraded, intervention likely":
+      s<=7?"moderate, watch":s<=8?"sound, maintain":"intact, multifunctional potential"}
+  function ramp(v){return css("--s"+Math.max(1,Math.min(5,Math.round(v))))}
+
+  function buildCanal(){
+    var r=rng(CSEED);
+    CANAL=CANALS[Math.floor(r()*CANALS.length)];
+    var ph=r()*6.283, fr=4.2+r()*3.4, amp=CH*0.30,
+        ph2=r()*6.283, fr2=fr*(1.9+r()*0.9);
+    JOINTS=[];SEG=[];
+    for(var i=0;i<=NSEG;i++){
+      var u=i/NSEG;
+      JOINTS.push({x:CW*0.07+u*CW*0.86,
+        y:CH*0.5+Math.sin(ph+u*fr)*amp*0.74+Math.sin(ph2+u*fr2)*amp*0.34
+          +(r()-0.5)*CH*0.05});
+    }
+    for(i=0;i<NSEG;i++)
+      SEG.push({t:1+Math.floor(r()*5), f:1+Math.floor(r()*5),
+        code:CANAL[1]+(i+1<10?"0":"")+(i+1),
+        set:SETTINGS[Math.floor(r()*SETTINGS.length)], el:null});
+    csel=0;
   }
-  function paintSegs(){
-    [].forEach.call(segsEl.children,function(b,i){
-      var d=segData[i];
-      b.style.background=ramp(Math.round((d.t+d.f)/2));
-      b.setAttribute("aria-pressed",String(i===cur));
+
+  function crp(p0,p1,p2,p3,t){
+    var a=t*t,b=a*t;
+    return {x:0.5*(2*p1.x+(-p0.x+p2.x)*t+(2*p0.x-5*p1.x+4*p2.x-p3.x)*a+(-p0.x+3*p1.x-3*p2.x+p3.x)*b),
+            y:0.5*(2*p1.y+(-p0.y+p2.y)*t+(2*p0.y-5*p1.y+4*p2.y-p3.y)*a+(-p0.y+3*p1.y-3*p2.y+p3.y)*b)};
+  }
+  function segPts(i){
+    var P=JOINTS,S=16,out=[],
+        p0=P[Math.max(0,i-1)],p1=P[i],p2=P[i+1],p3=P[Math.min(P.length-1,i+2)];
+    for(var k=0;k<=S;k++)out.push(crp(p0,p1,p2,p3,k/S));
+    return out;
+  }
+  function trace(pts){cc.beginPath();
+    for(var k=0;k<pts.length;k++)k?cc.lineTo(pts[k].x,pts[k].y):cc.moveTo(pts[k].x,pts[k].y)}
+
+  function drawCanal(){
+    if(!CW||!SEG.length)return;
+    var ACC=css("--accent"),FAINT=css("--faint"),SURF=css("--surface");
+    cc.clearRect(0,0,CW,CH);cc.fillStyle=css("--bg-2");cc.fillRect(0,0,CW,CH);
+    cc.lineCap="round";cc.lineJoin="round";
+    var i,pts;
+    for(i=0;i<NSEG;i++){                       /* banks */
+      pts=segPts(i);cc.strokeStyle=css("--line");cc.lineWidth=22;trace(pts);cc.stroke();
+    }
+    for(i=0;i<NSEG;i++){                       /* water, shaded by condition */
+      pts=segPts(i);var d=SEG[i],on=i===csel;
+      cc.strokeStyle=ramp((d.t+d.f)/2);cc.lineWidth=on?17:14;trace(pts);cc.stroke();
+      if(on){cc.strokeStyle=ACC;cc.lineWidth=2.4;trace(pts);cc.stroke()}
+    }
+    for(i=1;i<JOINTS.length-1;i++){            /* structures at the cuts */
+      var j=JOINTS[i],a=JOINTS[i-1],b=JOINTS[i+1],
+          dx=b.x-a.x,dy=b.y-a.y,L=Math.hypot(dx,dy)||1,nx=-dy/L,ny=dx/L;
+      cc.strokeStyle=SURF;cc.lineWidth=2.6;
+      cc.beginPath();cc.moveTo(j.x-nx*13,j.y-ny*13);cc.lineTo(j.x+nx*13,j.y+ny*13);cc.stroke();
+    }
+    cc.font='500 10.5px ui-monospace,SFMono-Regular,monospace';cc.textAlign="center";
+    var tight=CW<470;
+    for(i=0;i<NSEG;i++){
+      pts=segPts(i);var m=pts[8],
+          ly=m.y<CH*0.5?m.y-19:m.y+26;
+      ly=Math.max(13,Math.min(CH-7,ly));
+      cc.fillStyle=i===csel?ACC:FAINT;
+      cc.fillText(tight?(i+1<10?"0":"")+(i+1):SEG[i].code, m.x, ly);
+    }
+  }
+
+  function pickAt(mx,my){
+    var bi=csel,bd=Infinity;
+    for(var i=0;i<NSEG;i++){
+      var pts=segPts(i);
+      for(var k=0;k<pts.length;k++){
+        var d=(pts[k].x-mx)*(pts[k].x-mx)+(pts[k].y-my)*(pts[k].y-my);
+        if(d<bd){bd=d;bi=i}
+      }
+    }
+    return bi;
+  }
+
+  function buildRows(){
+    var tb=$("#sv-rows"),frag=document.createDocumentFragment();
+    tb.textContent="";
+    SEG.forEach(function(x,i){
+      var tr=document.createElement("tr");
+      tr.style.setProperty("--i",i);
+      tr.innerHTML='<td class="nr">'+(i+1<10?"0":"")+(i+1)+'</td><td>'+x.code+
+        '</td><td class="st">'+x.set+'</td><td class="fl tec">'+x.t+'</td><td class="fl fun">'+x.f+
+        '</td><td class="vd">'+vshort(x.t,x.f)+'</td>';
+      tr.addEventListener("click",function(){csel=i;paintCanal()});
+      x.el=tr;frag.appendChild(tr);
     });
+    tb.appendChild(frag);
   }
-  function paintScores(){
-    var d=segData[cur];
-    $("#v-tech").textContent=d.t; $("#v-func").textContent=d.f;
-    $("#v-sum").textContent=d.t+d.f;
-    $("#verdict").textContent=verdictOf(d.t,d.f);
-    $("#seg-id").textContent="segment "+(cur+1)+" of "+N;
+
+  function paintCanal(){
+    drawCanal();
+    var d=SEG[csel],mt=0,mf=0,pri=0;
+    $("#v-tech").textContent=d.t+" of 5";
+    $("#v-func").textContent=d.f+" of 5";
+    $("#c-verdict").textContent=vlong(d.t,d.f);
+    $("#c-seg").textContent=d.code;
+    $("#c-set").textContent=d.set;
     [].forEach.call($("#p-tech").children,function(p,i){p.setAttribute("aria-pressed",String(i+1===d.t))});
     [].forEach.call($("#p-func").children,function(p,i){p.setAttribute("aria-pressed",String(i+1===d.f))});
-    var mt=segData.reduce(function(a,x){return a+x.t},0)/N, mf=segData.reduce(function(a,x){return a+x.f},0)/N;
-    $("#c-mean").textContent=mt.toFixed(1); $("#c-fmean").textContent=mf.toFixed(1);
+    SEG.forEach(function(x,i){
+      mt+=x.t;mf+=x.f;if(x.t+x.f<=5)pri++;
+      if(!x.el)return;
+      x.el.querySelector(".tec").textContent=x.t;
+      x.el.querySelector(".fun").textContent=x.f;
+      x.el.querySelector(".vd").textContent=vshort(x.t,x.f);
+      i===csel?x.el.setAttribute("data-sel",""):x.el.removeAttribute("data-sel");
+    });
+    $("#sv-id").textContent=CANAL[0].toUpperCase()+" · "+NSEG+" SEGMENTS";
+    $("#sv-mt").textContent=(mt/NSEG).toFixed(1);
+    $("#sv-mf").textContent=(mf/NSEG).toFixed(1);
+    $("#sv-pri").textContent=pri;
   }
-  for(var i2=0;i2<N;i2++){
-    var b=document.createElement("button");
-    b.className="seg"; b.type="button"; b.setAttribute("aria-label","Canal segment "+(i2+1));
-    b.dataset.i=i2;
-    b.addEventListener("click",function(){cur=parseInt(this.dataset.i,10);paintSegs();paintScores()});
-    segsEl.appendChild(b);
+
+  function resizeCanal(){
+    var rect=ccv.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);
+    CW=rect.width;CH=rect.height||300;
+    ccv.width=Math.round(CW*dpr);ccv.height=Math.round(CH*dpr);
+    cc.setTransform(dpr,0,0,dpr,0,0);
+    buildCanal();buildRows();paintCanal();
   }
+
   ["p-tech","p-func"].forEach(function(id){
     var el=document.getElementById(id);
     for(var v=1;v<=5;v++){
       var p=document.createElement("button");
-      p.className="pip"; p.type="button"; p.textContent=v; p.dataset.v=v;
-      p.setAttribute("aria-label",(id==="p-tech"?"Technical":"Functional")+" score "+v);
+      p.className="pip";p.type="button";p.textContent=v;p.dataset.v=v;
+      p.setAttribute("aria-label",(id==="p-tech"?"Technical integrity":"Functional use")+" score "+v);
       p.addEventListener("click",function(){
         var val=parseInt(this.dataset.v,10);
-        if(id==="p-tech") segData[cur].t=val; else segData[cur].f=val;
-        paintSegs(); paintScores();
+        if(id==="p-tech")SEG[csel].t=val;else SEG[csel].f=val;
+        paintCanal();
       });
       el.appendChild(p);
     }
+  });
+
+  ccv.addEventListener("click",function(e){
+    var r=ccv.getBoundingClientRect();
+    csel=pickAt(e.clientX-r.left,e.clientY-r.top);paintCanal();
+  });
+  ccv.addEventListener("keydown",function(e){
+    if(e.key==="ArrowRight"||e.key==="ArrowDown"){csel=(csel+1)%NSEG;paintCanal();e.preventDefault()}
+    if(e.key==="ArrowLeft"||e.key==="ArrowUp"){csel=(csel+NSEG-1)%NSEG;paintCanal();e.preventDefault()}
+  });
+  $("#cnew").addEventListener("click",function(){
+    CSEED=(CSEED*33+17)%2147483647;buildCanal();buildRows();paintCanal();
   });
 
   /* ================= LAYER TOGGLE ================= */
@@ -955,8 +1117,7 @@
   });
 
   /* ---- boot ---- */
-  paintSegs(); paintScores();
-  function boot(){ resize(); if(!reduce){prog=0;run()} }
+  function boot(){ resize(); resizeCanal(); if(!reduce){prog=0;run()} }
   if(document.fonts&&document.fonts.ready) document.fonts.ready.then(boot); else boot();
 })();
 </script>
