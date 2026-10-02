@@ -209,14 +209,24 @@
   .panel dl{margin:0}
 
   .record{border-top:1px solid var(--line)}
-  .rec{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,2fr) auto;gap:clamp(10px,3vw,28px);
+  .rec{display:grid;grid-template-columns:auto minmax(0,.8fr) minmax(0,2fr) auto;
+    gap:clamp(10px,2.4vw,24px);
     align-items:baseline;padding:18px 0;border-bottom:1px solid var(--hair);
     text-decoration:none;color:inherit;transition:padding-left .22s cubic-bezier(.16,1,.3,1)}
+  .rec .lg{position:relative;align-self:center;flex:none;width:88px;height:66px;
+    border-radius:8px;background:#fff;border:1px solid var(--line);overflow:hidden}
+  .rec .lg img{position:absolute;inset:0;width:100%;height:100%;padding:7px;
+    object-fit:contain;display:block}
   .rec:hover{padding-left:10px}
   .rec .who{font-weight:500}
   .rec .what{color:var(--muted);font-size:14px}
   .rec .go{font-family:var(--mono);font-size:12px;color:var(--accent);white-space:nowrap}
-  @media (max-width:800px){.rec{grid-template-columns:1fr;gap:4px;padding:15px 0}}
+  @media (max-width:800px){
+    .rec{grid-template-columns:auto minmax(0,1fr);gap:3px 13px;padding:15px 0}
+    .rec .lg{grid-column:1;grid-row:1/span 3;align-self:start;width:70px;height:54px}
+    .rec .lg img{padding:5px}
+    .rec .who,.rec .what,.rec .go{grid-column:2}
+  }
 
   .band{background:var(--wash);border-radius:var(--r);padding:clamp(24px,4.6vw,54px) clamp(18px,4vw,46px)}
   .addr{font-family:var(--mono);font-size:15px;background:var(--surface);border:1px solid var(--line);
@@ -619,18 +629,22 @@
     <h2 class="reveal" style="margin-bottom:22px">Written up by other people</h2>
     <div class="record reveal">
       <a class="rec" href="https://civil.tdtu.edu.vn/en/news-events/2026/strengthening-global-academic-ties-dutch-student-bjorn-hettemas-internship-urban" target="_blank" rel="noopener">
+        <span class="lg"><img src="logo-tdtu.png" alt="" loading="lazy"></span>
         <span class="who">Ton Duc Thang University</span>
         <span class="what">The Faculty of Civil Engineering wrote up the smart-cities internship and awarded a certificate for research achievement.</span>
         <span class="go">Read it</span></a>
       <a class="rec" href="https://pasca.undip.ac.id/en/collaboration-between-sps-undip-and-saxion-university-on-researching-the-history-of-canal-transformation-of-the-javanese-shore/" target="_blank" rel="noopener">
+        <span class="lg"><img src="logo-undip.png" alt="" loading="lazy"></span>
         <span class="who">Universitas Diponegoro</span>
         <span class="what">The Postgraduate School's account of the Saxion and UNDIP canal collaboration, naming me lead researcher.</span>
         <span class="go">Read it</span></a>
       <a class="rec" href="https://svwatt.com/en/association/board/wall-of-fame/" target="_blank" rel="noopener">
+        <span class="lg"><img src="logo-watt.png" alt="" loading="lazy"></span>
         <span class="who">s.v. Watt</span>
         <span class="what">The study association's Wall of Fame, listing me as chairman of the 18th, 19th and 20th boards.</span>
         <span class="go">Read it</span></a>
       <a class="rec" href="https://fip.utwente.nl/nl/project/vollebak/" target="_blank" rel="noopener">
+        <span class="lg"><img src="logo-utwente.png" alt="" loading="lazy"></span>
         <span class="who">University of Twente</span>
         <span class="what">The Vollebak project page: affordable sensing for public waste bins, with Robor Electronics and Hosoco.</span>
         <span class="go">Read it</span></a>
