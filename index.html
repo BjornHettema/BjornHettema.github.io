@@ -370,7 +370,8 @@
           already passing close by. Everything further down waits for tomorrow. Every reading becomes a stop
           with a time window, and the whole set goes to a route optimiser.</p>
         <p class="lead">Raise the threshold and the truck gets fussier: fewer stops, shorter day, more bins
-          left for tomorrow. Shorten the shift and the round simply stops wherever the clock runs out. Those
+          left for tomorrow. Drop it to any and it sets out to empty all thirty-four, which stops fitting
+          inside the day. Shorten the shift and the round simply stops wherever the clock runs out. Those
           are the two levers a depot actually argues about; the thirty-four bins are a given.</p>
         <p class="lead" style="margin-top:16px;color:var(--ink)"><strong>Set the two dials, then print a
           round.</strong></p>
@@ -385,9 +386,9 @@
           <canvas id="net" height="252" aria-label="District map showing waste bins by fill level and the planned truck route"></canvas>
           <div class="dials">
             <label class="dial">
-              <span class="dial-l">Empty a bin once it passes</span>
+              <span class="dial-l">Empty a bin from</span>
               <output class="dial-v" id="thr-v">70% full</output>
-              <input type="range" id="thr" min="50" max="90" value="70" step="5">
+              <input type="range" id="thr" min="0" max="100" value="70" step="5">
             </label>
             <label class="dial">
               <span class="dial-l">Length of the shift</span>
@@ -904,8 +905,19 @@
     BINS.forEach(function(b){drawBin(b,inRoute.has(b.n))});
 
     if(DEPOT){
-      ctx.fillStyle=INK;rr(DEPOT.x-5,DEPOT.y-5,10,10,2.5);ctx.fill();
-      ctx.fillStyle=css("--bg-2");rr(DEPOT.x-2,DEPOT.y-1.5,4,4,.8);ctx.fill();
+      var dx=DEPOT.x,dy=DEPOT.y,BG2=css("--bg-2");
+      ctx.fillStyle=BG2;rr(dx-12,dy-13,24,23,5);ctx.fill();   /* clear the route behind it */
+      ctx.fillStyle=INK;
+      ctx.beginPath();ctx.moveTo(dx-10,dy-3);ctx.lineTo(dx,dy-12);
+      ctx.lineTo(dx+10,dy-3);ctx.closePath();ctx.fill();      /* roof */
+      rr(dx-7.5,dy-3,15,10,1.5);ctx.fill();                   /* shed */
+      ctx.fillStyle=BG2;rr(dx-4,dy+1,8,6,1);ctx.fill();       /* shutter */
+      ctx.font='500 8.5px ui-monospace,SFMono-Regular,monospace';
+      ctx.textAlign="center";
+      var tw=ctx.measureText("DEPOT").width;
+      ctx.fillStyle=BG2;rr(dx-tw/2-3.5,dy+11,tw+7,11,2.5);ctx.fill();
+      ctx.fillStyle=css("--faint");
+      ctx.fillText("DEPOT",dx,dy+19);
     }
     var tp=prog<1?routePoint(prog):null;
     if(tp){
@@ -915,7 +927,7 @@
   }
 
   function compute(){var p=planRound();ROUTE=p.tour;renderDocket(p)}
-  function labels(){$("#thr-v").textContent=thr()+"% full";
+  function labels(){$("#thr-v").textContent=thr()?thr()+"% full":"any fill";
     $("#shift-v").textContent=shiftH()+" hours";
     $("#dk-shift").textContent=shiftH()}
 
