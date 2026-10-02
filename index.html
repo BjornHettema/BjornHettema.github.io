@@ -796,30 +796,38 @@
     }
   }
 
+  /* How much detour a bin is worth. A nearly full bin pulls far harder than a
+     nearly empty one, which is what makes this a priority model rather than a
+     nearest-neighbour loop: the truck will drive roughly nine times further
+     for a full bin than for one barely used. */
+  function urgency(fill){return 0.15+Math.pow(fill/100,2)*1.85}
+
   function planRound(){
     var scale=kmScale(), due=[], spare=[], skipped=0;
     BINS.forEach(function(b){
       var k=tierOf(b.fill);
       if(k==="due")due.push(b); else if(k==="spare")spare.push(b); else skipped++;
     });
-    var NEAR=Math.min(W,H)*0.34;
-    var cur=DEPOT,t=0,rows=[],tour=[DEPOT],i;
+    var NEAR=Math.min(W,H)*0.34, SPARE_PENALTY=0.15;
+    var cur=DEPOT,t=0,rows=[],tour=[DEPOT],i,best;
     while(due.length||spare.length){
-      var bd=null,bi=-1,sp=false;
-      for(i=0;i<due.length;i++){var d=gdist(cur,due[i].n);
-        if(bd===null||d<bd){bd=d;bi=i;sp=false}}
-      for(i=0;i<spare.length;i++){var e=gdist(cur,spare[i].n);
-        if(e<=NEAR&&(bd===null||e<bd)){bd=e;bi=i;sp=true}}
-      if(bi<0)break;
-      var list=sp?spare:due, pick=list[bi],
-          arrive=t+bd*scale/SPEED_KMH,
-          finish=arrive+SERVICE_S/3600,
-          home=gdist(pick.n,DEPOT)*scale/SPEED_KMH;
-      if(finish+home>shiftH())break;
-      tour=tour.concat(pathBetween(cur,pick.n).slice(1));
-      t=finish;cur=pick.n;
-      rows.push({bin:pick,at:arrive});
-      list.splice(bi,1);
+      best=null;
+      for(i=0;i<due.length+spare.length;i++){
+        var sp=i>=due.length, list=sp?spare:due, k=sp?i-due.length:i, bn=list[k],
+            d=gdist(cur,bn.n);
+        if(sp&&d>NEAR)continue;                  /* a spare bin only if passing */
+        var arrive=t+d*scale/SPEED_KMH,
+            finish=arrive+SERVICE_S/3600,
+            home=gdist(bn.n,DEPOT)*scale/SPEED_KMH;
+        if(finish+home>shiftH())continue;        /* would not get the truck home */
+        var c=d/(urgency(bn.fill)*(sp?SPARE_PENALTY:1));
+        if(!best||c<best.c)best={c:c,list:list,k:k,bin:bn,arrive:arrive,finish:finish};
+      }
+      if(!best)break;
+      tour=tour.concat(pathBetween(cur,best.bin.n).slice(1));
+      t=best.finish;cur=best.bin.n;
+      rows.push({bin:best.bin,at:best.arrive});
+      best.list.splice(best.k,1);
     }
     skipped+=due.length+spare.length;
     tour=tour.concat(pathBetween(cur,DEPOT).slice(1));
