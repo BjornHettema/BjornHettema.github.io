@@ -30,7 +30,7 @@
     --ink:#E9F2EE; --muted:#93A89F; --faint:#697D76;
     --line:#1E2E29; --hair:#16221F;
     --accent:#2FE39A; --accent-ink:#04170F; --wash:#0E2B22;
-    --s1:#1E4A3C; --s2:#256B52; --s3:#2E8F68; --s4:#2ABA82; --s5:#3BEBA4;
+    --s1:#E2552F; --s2:#E08A33; --s3:#D4B445; --s4:#5FA8D3; --s5:#68D7F0;
     --shadow:0 1px 2px rgb(0 0 0 / .5), 0 18px 48px rgb(0 0 0 / .38);
     --r:16px;
     --display:"Bricolage Grotesque","Geist",system-ui,sans-serif;
@@ -45,7 +45,7 @@
     --ink:#0B1411; --muted:#586962; --faint:#84938C;
     --line:#DBE2DE; --hair:#E7ECE9;
     --accent:#06996A; --accent-ink:#FFFFFF; --wash:#DFF0E8;
-    --s1:#C6DED3; --s2:#8CC4AC; --s3:#4FA684; --s4:#178A63; --s5:#046B4B;
+    --s1:#C2401A; --s2:#C57A1C; --s3:#9C8420; --s4:#2E7DA8; --s5:#0E86AC;
     --shadow:0 1px 2px rgb(11 20 17 / .05), 0 16px 40px rgb(11 20 17 / .07);
   }
 
@@ -104,9 +104,18 @@
   .plate{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);
     background:var(--surface);box-shadow:var(--shadow)}
   .plate img{width:100%}
-  .plate .tag{position:absolute;left:0;right:0;bottom:0;padding:9px 12px;
-    font-family:var(--mono);font-size:11px;color:var(--ink);
-    background:color-mix(in srgb,var(--surface) 88%,transparent);border-top:1px solid var(--hair)}
+  .slides{position:relative;aspect-ratio:4/3;background:var(--surface-2)}
+  .slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+    opacity:0;transition:opacity .85s cubic-bezier(.4,0,.2,1)}
+  .slides img[data-on]{opacity:1}
+  .plate .tag{padding:10px 13px;min-height:54px;
+    font-family:var(--mono);font-size:11px;color:var(--ink);line-height:1.55;
+    background:var(--surface);border-top:1px solid var(--hair);
+    display:flex;gap:14px;align-items:center;justify-content:space-between}
+  .dots{display:flex;gap:6px;flex:none}
+  .dots button{width:7px;height:7px;padding:0;border:0;border-radius:999px;cursor:pointer;
+    background:var(--faint);transition:background .25s,width .25s cubic-bezier(.16,1,.3,1)}
+  .dots button[aria-selected="true"]{background:var(--accent);width:17px}
   @media (max-width:880px){
     .hero{grid-template-columns:1fr;gap:26px}
     h1{font-size:clamp(36px,10vw,58px)}
@@ -152,10 +161,6 @@
 
   /* ---------- segment scorer ---------- */
   .segs{display:flex;gap:3px;margin-bottom:14px}
-  .seg{flex:1;height:52px;border:0;border-radius:5px;cursor:pointer;background:var(--s1);
-    position:relative;transition:transform .16s cubic-bezier(.16,1,.3,1)}
-  .seg:hover{transform:translateY(-3px)}
-  .seg[aria-pressed="true"]{outline:2px solid var(--accent);outline-offset:2px}
   .sc-row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;
     padding:9px 0;border-top:1px solid var(--hair);font-size:14px}
   .sc-row .lbl{color:var(--muted)}
@@ -232,6 +237,11 @@
     .io-ready.io-in{opacity:1;transform:none}
   }
   @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+
+  /* the segment instrument runs on its own colour, so the two
+     demonstrations do not read as the same thing */
+  #canals .inst{--accent:#5BC8E8;--accent-ink:#06232E;--wash:#0D2832}
+  :root[data-theme="light"] #canals .inst{--accent:#0E7FA6;--accent-ink:#FFFFFF;--wash:#DBEEF6}
 
   /* ---------- depot planner ---------- */
   #canal{height:300px;cursor:pointer}
@@ -322,8 +332,24 @@
       </div>
     </div>
     <figure class="plate" style="margin:0">
-      <img src="work-canals-analysis.jpg" alt="QGIS map of function division along the Kali Besar and Kali Ciliwung canals in Jakarta" width="1150" height="1125" fetchpriority="high">
-      <figcaption class="tag">Function division along the Kali Besar and Kali Ciliwung, Jakarta. My QGIS analysis.</figcaption>
+      <div class="slides" id="slides">
+        <img data-on src="work-canals-analysis.jpg" width="1150" height="1125" fetchpriority="high"
+          data-cap="Function division along the Kali Besar and Kali Ciliwung, Jakarta. My QGIS analysis."
+          alt="QGIS map of function division along the Kali Besar and Kali Ciliwung canals in Jakarta">
+        <img src="map-alles.webp" width="1600" height="1131" loading="lazy"
+          data-cap="The pedestrian network of Deventer in all three CROW layers: base, main and green."
+          alt="The pedestrian network of Deventer in three layers over a grey basemap">
+        <img src="work-canals-historic.jpg" width="820" height="1233" loading="lazy"
+          data-cap="Plattegrond van Soerabaja. The archival plan I reconstructed the original network from."
+          alt="Nineteenth century plattegrond of Soerabaja showing the original canal network">
+        <img src="map-hoofd.webp" width="1600" height="1131" loading="lazy"
+          data-cap="Deventer's main walking routes on their own, the structure the rest of the network hangs from."
+          alt="The main pedestrian routes of Deventer drawn in teal over a grey basemap">
+      </div>
+      <figcaption class="tag">
+        <span id="ptag">Function division along the Kali Besar and Kali Ciliwung, Jakarta. My QGIS analysis.</span>
+        <span class="dots" id="pdots" role="tablist" aria-label="Choose a figure"></span>
+      </figcaption>
     </figure>
   </header>
 
@@ -605,7 +631,7 @@
         <span class="go">Read it</span></a>
       <a class="rec" href="https://fip.utwente.nl/nl/project/vollebak/" target="_blank" rel="noopener">
         <span class="who">University of Twente</span>
-        <span class="what">The Vollebak project page: affordable sensing for public waste bins, with Robor Electronics and WesterikICT.</span>
+        <span class="what">The Vollebak project page: affordable sensing for public waste bins, with Robor Electronics and Hosoco.</span>
         <span class="go">Read it</span></a>
     </div>
   </section>
@@ -639,6 +665,7 @@
   var $=function(s){return document.querySelector(s)}, $$=function(s){return [].slice.call(document.querySelectorAll(s))};
   var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim()}
+  function cssOf(el,v){return getComputedStyle(el).getPropertyValue(v).trim()}
 
   /* ---- theme ---- */
   var root=document.documentElement, tb=$("#theme");
@@ -647,7 +674,7 @@
     var next = root.getAttribute("data-theme")==="light" ? "dark" : "light";
     root.setAttribute("data-theme",next);
     try{localStorage.setItem("bh-theme",next);}catch(e){}
-    drawNet(); drawCurve();
+    drawNet(); paintCanal();
   });
 
   /* ---- marquee ---- */
@@ -971,7 +998,7 @@
 
   function drawCanal(){
     if(!CW||!SEG.length)return;
-    var ACC=css("--accent"),FAINT=css("--faint"),SURF=css("--surface");
+    var SEL=css("--ink"),FAINT=css("--faint"),SURF=css("--surface");
     cc.clearRect(0,0,CW,CH);cc.fillStyle=css("--bg-2");cc.fillRect(0,0,CW,CH);
     cc.lineCap="round";cc.lineJoin="round";
     var i,pts;
@@ -981,7 +1008,7 @@
     for(i=0;i<NSEG;i++){                       /* water, shaded by condition */
       pts=segPts(i);var d=SEG[i],on=i===csel;
       cc.strokeStyle=ramp((d.t+d.f)/2);cc.lineWidth=on?17:14;trace(pts);cc.stroke();
-      if(on){cc.strokeStyle=ACC;cc.lineWidth=2.4;trace(pts);cc.stroke()}
+      if(on){cc.strokeStyle=SEL;cc.lineWidth=2.4;trace(pts);cc.stroke()}
     }
     for(i=1;i<JOINTS.length-1;i++){            /* structures at the cuts */
       var j=JOINTS[i],a=JOINTS[i-1],b=JOINTS[i+1],
@@ -995,7 +1022,7 @@
       pts=segPts(i);var m=pts[8],
           ly=m.y<CH*0.5?m.y-19:m.y+26;
       ly=Math.max(13,Math.min(CH-7,ly));
-      cc.fillStyle=i===csel?ACC:FAINT;
+      cc.fillStyle=i===csel?SEL:FAINT;
       cc.fillText(tight?(i+1<10?"0":"")+(i+1):SEG[i].code, m.x, ly);
     }
   }
@@ -1115,6 +1142,35 @@
     try{navigator.clipboard.writeText(addr.textContent.trim()).then(function(){copy.textContent="Copied";back()},sel)}
     catch(e){sel()}
   });
+
+  /* ================= HERO FIGURES ================= */
+  (function(){
+    var box=$("#slides"); if(!box)return;
+    var ims=$$("#slides img"), dots=$("#pdots"), tag=$("#ptag"),
+        i=0, timer=null, paused=false, plate=box.parentNode;
+    function show(k){
+      i=k;
+      ims.forEach(function(im,j){j===k?im.setAttribute("data-on",""):im.removeAttribute("data-on")});
+      [].forEach.call(dots.children,function(d,j){d.setAttribute("aria-selected",String(j===k))});
+      tag.textContent=ims[k].getAttribute("data-cap")||"";
+    }
+    function stop(){if(timer){clearInterval(timer);timer=null}}
+    function start(){stop();if(reduce||ims.length<2)return;
+      timer=setInterval(function(){if(!paused&&!document.hidden)show((i+1)%ims.length)},5600)}
+    ims.forEach(function(im,k){
+      var b=document.createElement("button");
+      b.type="button";b.setAttribute("role","tab");
+      b.setAttribute("aria-label","Figure "+(k+1)+" of "+ims.length);
+      b.setAttribute("aria-selected",String(k===0));
+      b.addEventListener("click",function(){show(k);start()});
+      dots.appendChild(b);
+    });
+    plate.addEventListener("pointerenter",function(){paused=true});
+    plate.addEventListener("pointerleave",function(){paused=false});
+    plate.addEventListener("focusin",function(){paused=true});
+    plate.addEventListener("focusout",function(){paused=false});
+    show(0);start();
+  })();
 
   /* ---- boot ---- */
   function boot(){ resize(); resizeCanal(); if(!reduce){prog=0;run()} }
